@@ -27,6 +27,7 @@ function renderAdded() {
     resetButton.removeAttribute('disabled');
     resetButton.classList.remove('form__submit-btn_disabled');
     noSongsElement.classList.add('no-songs_hidden');
+    debugger;
   }
 }
 
@@ -49,5 +50,29 @@ artist.value = "";
 }
 
 addButton.addEventListener('click', addSong);
-
 renderAdded();
+debugger;
+
+//Este ahora es un ejemplo de un e.preventDefault en un form:
+
+const form = document.querySelector('.popup__form');
+
+function handleFormSubmit(event) {
+  event.preventDefault();
+  // la lógica de "enviar" va aquí
+}
+form.addEventListener('submit', handleFormSubmit);
+
+//Este otro código hace lo mismo:
+
+const form = document.querySelector('.popup__form');
+
+function handleFormSubmit(e) {
+  e.preventDefault();
+  // la lógica de "enviar" va aquí
+}
+form.addEventListener('submit', handleFormSubmit);
+
+/*Esto también es correcto, por las mismas razones que la respuesta anterior. 
+El nombre que le des al objeto event es arbitrario, pero por convención, deberías
+ utilizar event, evt o e. Y ser coherente*/

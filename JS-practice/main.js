@@ -119,10 +119,30 @@ let MeaningOfLife;
 
 console.log(MeaningOfLife); // undefined 
 
+//This is how you write an arrow function and call it 
 
+const addThreeAndFour = () => 3 + 4; 
+console.log(addThreeAndFour());
 
+// The parameter is `name`
+function greetUser(name) {
+  return `Hello, ${name}!`;
+}
 
+//The arrow function
+const calculateSum = (num1, num2) => num1 + num2;
+console.log(calculateSum(2, 5)); // Calling the function, Output: 7
 
+console.log(calculateSum(10, 10));
+console.log(calculateSum(5, 5));
 
+/*Another example of a math.pox function vs arrow function*/
+//The arrow function
+const calculateSquare = (num) => Math.pow(num, 2); //Math.pow exponentiates the number
+//The function func
+function calculateSquare(num) {
+  return num ** 2;
+}
 
-
+//Same input tho
+console.log(calculateSquare(2));
