@@ -143,6 +143,17 @@ const calculateSquare = (num) => Math.pow(num, 2); //Math.pow exponentiates the 
 function calculateSquare(num) {
   return num ** 2;
 }
-
 //Same input tho
 console.log(calculateSquare(2));
+
+//To examine your document object:
+
+console.log(document.domain);
+console.log(document.url);
+console.log(document.title);
+document.title = 123;
+console.log(document);
+console.log(document.doctype);
+console.log(document.head);
+console.log(document.body);
+console.log(document.all); //This crawls everything in the DOM
