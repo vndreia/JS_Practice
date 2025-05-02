@@ -157,3 +157,12 @@ console.log(document.doctype);
 console.log(document.head);
 console.log(document.body);
 console.log(document.all); //This crawls everything in the DOM
+
+// These are weird string methods:
+const myName = prompt("¿Cómo te llamas?", ""); //PopUp
+const firstLetter = myName[0].toUpperCase(); // Selects the first index letter and turns it into UpperCase
+const restOfName = myName.slice(1); //This breaks up the last method to continue with lower case
+
+console.log("Hola, " + firstLetter + restOfName);
+//This finally shows "Hola, Andrea" despite I wrote my name in lower case
+//Really cool method tho
