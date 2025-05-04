@@ -166,3 +166,28 @@ const restOfName = myName.slice(1); //This breaks up the last method to continue
 console.log("Hola, " + firstLetter + restOfName);
 //This finally shows "Hola, Andrea" despite I wrote my name in lower case
 //Really cool method tho
+
+//Now this is a goddamn function, jesus 
+
+/* La función toma dos argumentos:
+presión sistólica y diastólica
+(arriba y abajo) */
+
+function getNormal(sys, dia) {  //You start a function you open { 
+  if (sys >= 100 && sys <= 135 && dia >= 60 && dia <= 85) { //You start a conditional you open another {
+  return true;
+  } /*You close it*/ else {  //Another conditional, so another {}
+   return false;
+ }
+} //Closing }
+//Help 
+console.log(getNormal(110, 70)); // true
+console.log(getNormal(140, 75)); // false
+console.log(getNormal(98, 80)); // false
+
+
+
+const 
+function andreasBf () {
+  if 
+}
