@@ -186,8 +186,13 @@ console.log(getNormal(140, 75)); // false
 console.log(getNormal(98, 80)); // false
 
 
+/*Termina el código que comprueba si una contraseña contiene o no un signo de interrogación. Si hay un signo de interrogación, registra su posición en la contraseña en la consola.*/
 
-const 
-function andreasBf () {
-  if 
+const password = prompt("Introduce la contraseña:", ""); //"" = Default vale
+
+for (let i = 0; i <= password.length; i++) {
+  if (password[i] === "?") {
+    console.log("La contraseña contiene ? en el carácter" + (i + 1)); //i + 1 because the index starts from 0, so you add 1 to get the actual position
+  }break;
 }
+
