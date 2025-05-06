@@ -164,6 +164,37 @@ console.log("Hola, " + firstLetter + restOfName);
 //This finally shows "Hola, Andrea" despite I wrote my name in lower case
 //Really cool method tho
 
+//Now this is a goddamn function, jesus 
+
+/* La función toma dos argumentos:
+presión sistólica y diastólica
+(arriba y abajo) */
+
+function getNormal(sys, dia) {  //You start a function you open { 
+  if (sys >= 100 && sys <= 135 && dia >= 60 && dia <= 85) { //You start a conditional you open another {
+  return true;
+  } /*You close it*/ else {  //Another conditional, so another {}
+   return false;
+ }
+} //Closing }
+//Help 
+console.log(getNormal(110, 70)); // true
+console.log(getNormal(140, 75)); // false
+console.log(getNormal(98, 80)); // false
+
+
+/*Termina el código que comprueba si una contraseña contiene o no un signo de interrogación. Si hay un signo de interrogación, registra su posición en la contraseña en la consola.*/
+
+const password = prompt("Introduce la contraseña:", ""); //"" = Default vale
+
+for (let i = 0; i <= password.length; i++) {
+  if (password[i] === "?") {
+    console.log("La contraseña contiene ? en el carácter" + (i + 1)); //i + 1 because the index starts from 0, so you add 1 to get the actual position
+  }break;
+}
+
+
+
 
 //Arrays practice 
 const shoppingList = [];
