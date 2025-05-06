@@ -13,15 +13,12 @@ console.warn('This is a warning');}
 20 % 3 gives you the residue = 2. */
 // variables: let and const 
 // They have a block level scope (only accesible in their blocks)
-Cualquier conjunto de caracteres encerrados entre comillas simples o dobles es un string:
+
 
 console.log('palabra');
 console.log('No solo una palabra, sino una oración completa.');
 console.log('1984'); // un número que aparece entre comillas es un string 
 
-Blocks in JavaScript (denoted by curly braces {} are used to group statements
-    together in various situations, such as in functions, conditionals, loops, 
-    or any control structure. 
 
 /* 
 Loops are used when you want to repeat actions multiple times.
@@ -166,3 +163,32 @@ const restOfName = myName.slice(1); //This breaks up the last method to continue
 console.log("Hola, " + firstLetter + restOfName);
 //This finally shows "Hola, Andrea" despite I wrote my name in lower case
 //Really cool method tho
+
+
+//Arrays practice 
+const shoppingList = [];
+
+console.log("It will be nice to have some fruit to eat.");
+
+shoppingList.push("Apples");
+
+function getShoppingListMsg(arr) {
+  return `Current Shopping List: ${arr.join(', ')}`;  //Join will combine all elements into a single string
+}
+//Join is mostly used to create a readble output
+// mainly used to create a readable string from an array. 
+console.log(getShoppingListMsg(shoppingList));
+
+shoppingList.push("Grapes");
+console.log(getShoppingListMsg(shoppingList));
+
+//This is another way to hardcode the function:
+function getShoppingListMsg() {
+  return `Current Shopping List: ${shoppingList}`;
+}
+/*Now you don’t need to pass anything:
+console.log(getShoppingListMsg());
+But this makes the function less reusable, 
+since it only works with one global variable: shoppingList.
+You're locking the function to only work with one specific variable, instead of letting it work with any data you give it.*/
+
