@@ -194,8 +194,6 @@ for (let i = 0; i <= password.length; i++) {
 }
 
 
-
-
 //Arrays practice 
 const shoppingList = [];
 
@@ -223,3 +221,141 @@ But this makes the function less reusable,
 since it only works with one global variable: shoppingList.
 You're locking the function to only work with one specific variable, instead of letting it work with any data you give it.*/
 
+
+
+//Map example 
+const words = [
+  "Baden",
+  "aye",
+  "go",
+  "agar"
+];
+
+var reduplications = words.map(function (elem) {
+  return elem + "-" + elem;
+});
+
+console.log(reduplications); // Baden-Baden,aye-aye,go-go,agar-agar 
+
+
+/*Ejemplo de forEach*/
+
+const a = [
+  "Harry Potter y la piedra filosofal",
+  "Harry Potter y la cámara secreta",
+  "Harry Potter y el prisionero de Azkaban",
+  "Harry Potter y el cáliz de fuego",
+  "Harry Potter y la Orden del Fénix",
+  "Harry Potter y el misterio del príncipe",
+  "Harry Potter y las Reliquias de la Muerte",   
+  "Harry Potter y los métodos de racionalidad"
+];
+
+const b = [];
+
+a.forEach(function (item) {  
+  b.push(item.split(" y ")[1]); //Con push agregas un alimento al final 
+  //Con split conviertes un string en un array a partir de "y"
+  //El [1] toma el elemento indexado como 1, que es en este caso todo lo qeu va después de Harry Potter
+  //[1] Selecciona el segundo elemento del array que se creó (los arrays comienzan en 0):
+});
+
+console.log(b); //Con varios títulos, b terminaría conteniendo:
+/*
+[
+  "la piedra filosofal",
+  "la cámara secreta",
+  "el prisionero de Azkaban",
+  ...
+]
+*/
+
+//ForEach syntax:
+
+array.forEach(function(currentValue, index, array) {
+  // código que se ejecuta por cada elemento del array
+});
+
+//forEach example:
+
+let fruits = ["apple", "banana", "orange"];
+//Imprime ahora el nombre de cada fruta junto con su índice: 
+fruits.forEach(function(currentValue, index, array) {
+  console.log(`El índice ${index} tiene el valor: ${currentValue}`);
+});
+
+//A function that removes every space from strings: 
+function noSpace(x){
+  return x.replace(/\s+/g, '')
+ }
+
+ //1---> .replace is a method to replace
+ //2---> /\s+/g finds all the blank spaces (4 some reason)
+ //3---> '' It´s a way to say "no space"
+
+ //Map example
+ const characters = [
+  "Luke Skywalker",
+  "Obi-Wan",
+  "Chewbacca",
+  "Anakin Skywalker",
+  "Han Solo",
+  "Palpatine"
+];
+
+ const newCharacters = characters.map(function (character) {
+  if (character === "Anakin Skywalker") {
+    return "Darth Vader";  // Caso cuando el personaje es "Anakin Skywalker"
+  }
+  return character;  // Caso cuando el personaje no es "Anakin Skywalker"
+});
+
+/*Por qué dos return?
+Resumen:
+El primer return cambia sólo "Anakin Skywalker" por "Darth Vader".
+
+El segundo return asegura que los demás personajes permanezcan sin cambios en el nuevo array.
+
+Si solo tienes un return como en tu código:*/
+
+const newCharacters = characters.map(function (character) {
+  if (character === "Anakin Skywalker") {
+    return "Darth Vader";
+  }
+});
+/*El nuevo array newCharacters será algo así:
+
+[undefined, undefined, undefined, "Darth Vader", undefined, undefined]
+
+¿Por qué pasa esto?
+Cuando el personaje no es "Anakin Skywalker", la función no devuelve nada, lo que resulta en undefined para esos elementos en el nuevo array.
+Cuando el personaje sí es "Anakin Skywalker", se devuelve "Darth Vader" y se coloca correctamente en el nuevo array.*/
+
+//Ejemplo simple de MAP()
+const nums = [1, 2, 3];
+
+const result = nums.map(function (num) {
+  if (num > 1) {
+    return num * 2;
+  }
+});
+
+//Esto dará [undefined, 4, 6]
+/*Porque:
+
+1 no cumple la condición (num > 1) → no hay return → undefined
+
+2 sí → devuelve 4
+
+3 sí → devuelve 6*/
+
+// tendría que poner 
+const nums = [1, 2, 3];
+
+const result = nums.map(function (num) {
+  if (num > 1) {
+    return num * 2;
+  }  
+  return num; 
+});    
+console.log(result);  // [1, 4, 6]
