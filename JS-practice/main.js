@@ -1,41 +1,17 @@
-//These are comments that are great for debugging
-/*So the ain purpose of using console methods and 
-comments is to help other developers (and sometimes yourself) understand
- what the code is doing, especially when working in a team or revisiting 
- code after a long time.*/
-
-{console.log('Hello World');
-console.error("This is an error");
-console.warn('This is a warning');}
 
 /* With numbers there´s this interesting operator for division fact:
 20 / 3 gives you the result
 20 % 3 gives you the residue = 2. */
-// variables: let and const 
-// They have a block level scope (only accesible in their blocks)
-
-
-console.log('palabra');
-console.log('No solo una palabra, sino una oración completa.');
-console.log('1984'); // un número que aparece entre comillas es un string 
-
 
 /* 
 Loops are used when you want to repeat actions multiple times.
 Functions are blocks of code that run when called, typically in response to user interactions.
 */
 
-// let
-let age = 30;  // with allow you to reasign values
- age = 31;   
-let name = 'Alice';
-console.log('name');  // This will print "Alice" to the console
-
- // const
- let age = 30;  // don´t allow you to reasign values, recommended to use the most unless you reasign variables
  age = 31; 
 
- //datatypes: string, numbers, boolean, null, undefined, NaN as some "errors"
+ //primitive datatypes: string, numbers, boolean, null, undefined, NaN as some "errors"
+ //They actually are immutable, only changes the reference
 
  const name = 'John';
  const age = 30;
@@ -52,11 +28,6 @@ console.log('name');  // This will print "Alice" to the console
   const hello = 'My name is ${name} and I am ${age}';
 
   console.log(hello);
-
-  //Another method
-
-  const s = "Hello world";
-  console.log(s.split(""));
 
   //Arrays - Variables that hold multiple values
   //Arrays are CERO based, meaning they start from 0 onwards
@@ -78,13 +49,6 @@ fruits.push("mangos");
 
 fruits.unshift("blueberries"); 
 // Adds "blueberries" to the BEGINNING of the array
-
-console.log(fruits); 
-// Now the array is: ["blueberries", "apples", "oranges", "pears", 10, "mangos"]
-
- const numbers = new Array(1, 2, 3, 4, 5);
-  console.log(numbers);
-nummbers[5] = "12"; //This should show 12 in the console as the 5th value
 
 
 //An OBJECT assigned to the person constant. 
@@ -136,7 +100,7 @@ console.log(calculateSum(5, 5));
 /*Another example of a math.pox function vs arrow function*/
 //The arrow function
 const calculateSquare = (num) => Math.pow(num, 2); //Math.pow exponentiates the number
-//The function func
+//The function execution
 function calculateSquare(num) {
   return num ** 2;
 }
@@ -144,7 +108,6 @@ function calculateSquare(num) {
 console.log(calculateSquare(2));
 
 //To examine your document object:
-
 console.log(document.domain);
 console.log(document.url);
 console.log(document.title);
@@ -359,3 +322,45 @@ const result = nums.map(function (num) {
   return num; 
 });    
 console.log(result);  // [1, 4, 6]
+
+
+//Filter example:
+
+const a = [1, 9, 2, 2, 3, 4, 1, 7, 8, 0, 9, 0, 1, 5, 3];
+
+const b = a.filter(function (item, index, array) {  //Those same parameters for forEach, map, filter
+    return array.lastIndexOf(item) === index; // “¿La posición actual (index) es igual a la última vez que este número aparece (lastIndexOf(item))?”s
+
+console.log(a); // [1, 9, 2, 2, 3, 4, 1, 7, 8, 0, 9, 0, 1, 5, 3]
+console.log(b); // [2, 4, 7, 8, 9, 0, 1, 5, 3]
+});
+//Why array.lastIndexOf works.
+const a = [1, 2, 3, 1];
+a.lastIndexOf(1); // devuelve 3, porque el 1 aparece por última vez en la posición 3
+
+//Loops 
+//For
+for(let 1 = 0; i <= 10; i++) {
+console.log(i); //1 2 3 4 5 6 7 8 9 10
+}
+//Also
+for(let 1 = 0; i <= 10; i++) {
+  console.log(`For loop Number: ${1}`); 
+}
+
+//While loops 
+let i = 0;
+while(i < 10); {
+  console.log(`While Loop Number: ${i}`); 
+  i++
+}
+
+//Weird sum loop
+const arr = [2, 4, 6];
+let sum = 0;
+
+for (let i = 0; i < arr.length; i++) {
+  sum += arr[i]; // or sum = sum + arr[i];
+}
+
+console.log(sum); // Output: 12
