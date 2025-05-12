@@ -536,3 +536,19 @@ const a = ["Kasparov", 1985];
 const b = ["Carlsen", 2013];
 
 a[1] - b[1] // → 1985 - 2013 → -28 ✅
+
+//This is a loop example with a function to count the number of vowels in a sentence:
+
+function getVowelCount(sentence) {
+  const vowels = "aeiou";  // This defines the characters we consider vowels.
+  let count = 0;  // This initializes a counter to track the number of vowels.
+
+  for (const char of sentence.toLowerCase()) {
+    // The .toLowerCase() ensures that we match both uppercase and lowercase vowels.
+    if (vowels.includes(char)) {
+      count++;  // If the character is a vowel, increment the counter.
+    }
+  }
+
+  return count;  // After checking all characters, return the final vowel count.
+}
