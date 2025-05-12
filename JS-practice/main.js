@@ -364,3 +364,175 @@ for (let i = 0; i < arr.length; i++) {
 }
 
 console.log(sum); // Output: 12
+
+
+//Reduce() method example
+/*  At its most basic, the reduce() method is often used to sum all the elements in an array 
+(or combine them in some other way). It takes all the items and "reduces" them to a single value—whether
+ that's a sum, product, or some other transformation.  */
+
+const practicaSemanal = [20, 30, 25];
+
+const suma = practicaSemanal.reduce(function(acumulador, minutos) {
+  console.log(`Acumulador: ${acumulador}, Minutos: ${minutos}`);
+  return acumulador + minutos;  
+}, 0);   //¿Qué significa }, 0); en reduce?
+//Ese 0 es el valor inicial del acumulador
+
+//Another reduce() example:
+const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+const sum = arr.reduce(function (previousValue, item) {s
+});
+console.log(`sum: ${sum}`);
+
+/*
+ sum: 45
+*/
+
+//Another reduce example with -negative numbers
+/* Crea un array para registrar las ganancias y pérdidas de un jugador.  */ 
+const winsAndLosses = [190, 117, -381, -394, -36, 137, -473, 372, -383];
+
+/* Calculemos cuánto dinero le quedará al jugador al final de la noche si empezó con 1.000 dólares.*/ 
+const total = winsAndLosses.reduce(function (previousValue, item) {
+    return previousValue + item;
+}, 1000); // El valor inicial que se quiere establecer se pasa a través del método reduce() como segundo argumento.
+
+console.log(total); // 149. ¿Qué esperabas? Así son los juegos de azar.
+
+//Ejemplo de reduce con conditionals:
+
+const order = ["manzana", "banana", "naranja", "banana", "manzana", "banana"];
+const result = order.reduce(function (prevVal, item) {
+    if (!prevVal[item]) {
+        // Si no tienes esa cosa (manzana, banana, etc.) en la caja, la pones con 1
+        prevVal[item] = 1;
+    } else {
+        // Si ya tienes esa cosa, la cuentas una vez más (sumando 1)
+        prevVal[item] += 1;
+    }
+    return prevVal;
+}, {});  //Aquí es donde se pone un objeto vacío: {} 
+
+
+//Duda con: 
+const acrostic = [
+  "Stars up in the sky",  
+  "They sparkle with love",  
+  "All so glorious",  
+  "Radiant above."
+];
+const cipherWord = acrostic.reduce(function (prevVal, item) {
+  return prevVal + item[0];  //Por qué se están sumando los argumentos???
+}, "");   //¿En qué casos se necesita el objeto vacío y por qué se escribe al final?
+  
+console.log(cipherWord);
+//Respuesta:
+//prevVal: Es el acumulador, es el valor que "acumula" los resultados mientras avanzamos en el array.
+
+/*item[0]: Es el primer carácter de cada cadena de texto en el array. Como estás usando item[0], accedes a la
+ primera letra de cada elemento del array acrostic.
+ En la primera iteración, el acumulador (prevVal) empieza como una cadena vacía "" porque así lo has inicializado en el reduce(). Y item será "Stars up in the sky".
+
+1---->En esta primera iteración, prevVal = "" y item = "Stars up in the sky", entonces prevVal + item[0] sería "" + "S", lo que resulta en "S".
+2----->En la segunda iteración, el acumulador ahora es "S", y item será "They sparkle with love".
+3------>Entonces prevVal = "S" y item = "They sparkle with love", lo que resulta en "S" + "T", es decir, "ST".
+4------>Esto sigue sucediendo para todas las demás frases en el array. Al final, prevVal tendrá la concatenación de las primeras letras de todas las cadenas, formando la palabra "STAR".
+5---->El proceso de "sumar" las letras es simplemente concatenarlas. Si hubieras estado trabajando con números, entonces en vez de prevVal + item[0] habrías hecho algo como prevVal + item.
+*/
+
+//Un ejercicio práctico
+const yogaOk = actividades.every(function(min >= 30) {
+return yogaOk.)};
+//La corrección: 
+const yogaOk = actividades.yoga.every(function(min) { //Function establece los argumentos y parámetros
+  return min >= 30; //A partir de return le dices qué ejecutar (o qué valor devolver)
+});
+
+//Esta función hace que se imprima una la palabra word al buscarla en el documento
+function findTheWord(word) {
+  const documentBody = document.body.textContent;
+ return documentBody.search(word);  
+}
+ /*.search(word) busca la primera coincidencia de la palabra 
+ (puede ser una expresión regular) y devuelve el índice (posición) donde la encontró.
+Si no la encuentra, devuelve -1.
+*/
+//Y esta función encuentra cuántas veces se repite
+let wordsCounter = 0;
+for (let i = 0; i < words.length; i++) {
+if (words)
+}
+
+//SORT method example:
+
+const chessChampions = [
+	"Wilhelm Steinitz",
+  "Emanuel Lasker",
+  "Jose Capablanca",
+  "Alexander Alekhine",
+  "Machgielis Euwe",
+  "Mikhail Botvinnik",
+  "Vasily Smyslov",
+  "Mikhail Tal",
+  "Tigran Petrosian",
+  "Boris Spassky",
+  "Robert Fischer",
+  "Anatoly Karpov",
+  "Garry Kasparov",
+  "Vladimir Kramnik",
+  "Viswanathan Anand",
+  "Magnus Carlsen"
+];
+
+chessChampions.sort(function (a, b) {
+const aSecondName = a.split(" ")[1].toLowerCase();  /*split(" " ) escrito de esa forma, está indicando que en cada espacio
+ se haga la separación para que me devuelva el segundo elemento completo,  y no sólo la primera letra
+*/
+  const bSecondName = b.split(" ")[1].toLowerCase();
+
+if (aSecondName > bSecondName) return 1;  //This puts the bigger element after
+if (aSecondName < bSecondName) return -1; //This puts the element first
+
+return 0; //If they have the same value the order remains the same
+console.log(chessChampions);
+
+});
+
+//Another SORT example:
+
+const chessChampions = [
+  ["Alexander Alekhine", 1927],
+  ["Alexander Alekhine", 1937],
+  ["Viswanathan Anand", 2007],
+  ["Mikhail Botvinnik", 1948],
+  ["Mikhail Botvinnik", 1958],
+  ["Mikhail Botvinnik", 1961],
+  ["Magnus Carlsen", 2013],
+  ["Max Euwe", 1935],
+  ["Robert Fischer", 1972],
+	["Jose Raul Capablanca y Graupera", 1921],
+  ["Anatoly Karpov", 1975],
+  ["Garry Kasparov", 1985],
+  ["Vladimir Kramnik", 2006],
+  ["Emanuel Lasker", 1894],
+  ["Tigran Petrosian", 1963],
+  ["Vasily Smyslov", 1957],
+  ["Boris Spassky", 1969],
+  ["Wilhelm Steinitz", 1886],
+  ["Mikhail Tal", 1960]
+];
+
+chessChampions.sort(function(a, b) {
+return a[1] - b[1];
+
+});
+
+console.log(chessChampions);
+
+//why this works?
+const a = ["Kasparov", 1985];
+const b = ["Carlsen", 2013];
+
+a[1] - b[1] // → 1985 - 2013 → -28 ✅
