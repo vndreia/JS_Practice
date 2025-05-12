@@ -542,13 +542,38 @@ a[1] - b[1] // → 1985 - 2013 → -28 ✅
 function getVowelCount(sentence) {
   const vowels = "aeiou";  // This defines the characters we consider vowels.
   let count = 0;  // This initializes a counter to track the number of vowels.
-
   for (const char of sentence.toLowerCase()) {
     // The .toLowerCase() ensures that we match both uppercase and lowercase vowels.
     if (vowels.includes(char)) {
       count++;  // If the character is a vowel, increment the counter.
     }
   }
-
   return count;  // After checking all characters, return the final vowel count.
+}
+
+//And this is a loop with a function to get the count of consonants with a number:
+
+function getConsonantCount(sentence) {
+  const vowels = "aeiou";
+  let count = 0;
+  for (const char of sentence.toLowerCase()) {
+    if (char >= 'a' && char <= 'z' && !vowels.includes(char)) {  /*THE tricky part with a>= 'a' && char <= 'z' is that
+      each character in UNICODE has a value, so you can actually compare its value, even tho they're not numbers*/
+      count++;
+    }
+  }
+  return count;
+}
+
+
+//JESUS
+function getPunctuationCount(sentence) {
+const punctuation = /[^a-zA-Z0-9 ]/; //regex to match any character that is not a letter, number, or space
+let counter = 0;
+  for (const char of sentence) {
+if (punctuation.test(char)) { //test() checks if the character matches the regex
+  counter++;
+}
+  }
+  return counter;
 }
