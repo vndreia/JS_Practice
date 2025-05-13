@@ -566,7 +566,7 @@ function getConsonantCount(sentence) {
 }
 
 
-//JESUS
+//Function to get any special character count.
 function getPunctuationCount(sentence) {
 const punctuation = /[^a-zA-Z0-9 ]/; //regex to match any character that is not a letter, number, or space
 let counter = 0;
@@ -576,4 +576,52 @@ if (punctuation.test(char)) { //test() checks if the character matches the regex
 }
   }
   return counter;
+}
+
+//Function to count the number of words in a sentence.
+
+function getWordCount(sentence) {  
+  const words = sentence.trim().split(/\s+/);  /*  //\s+/ means:
+"Find one or more spaces, tabs, newlines, or any other kind of space character!"*/
+  if (words[0] === '') { //"If the first item in the words array (which is words[0]) is empty (''), then that means there are no words — so we should return 0
+  return 0;
+}
+}
+//Trim is a method that deletes any space only at the beginning or end of the string.
+//Split is the method that created a division between each element, uses "," by default.
+
+
+//Scope: context in which a function appears
+//si declaras una variable dentro de una función, sólo se puede acceder a ella desde esa función
+//No podrás acceder a una variable que está dentro de una función
+//Las variables y las funciones se reconocen como identificadores
+//Ejemplo:
+
+let batteriesNumber = 12;
+let batteriesInTetris = 4;
+
+function findBatteries() {
+    const batteriesNumber = 8;
+
+    console.log(batteriesNumber); // 8
+/* el identificador batteriesNumber existe dentro de la función,
+    por lo que este es el valor que se registrará en la consola */
+
+    console.log(batteriesInTetris); // 4
+/* no existe tal identificador dentro de la función,
+ así que el motor lo recuperó de fuera de esa función */
+}
+
+//Scope global: una variable definida fuera de una función que puedes integrar en otras piezas de código
+//Scope anidado: funciona de adentro hacia afuera. Si el motor de JS no lo encuentra dentro, lo buscará fuera
+
+//Función: 
+function procrastinate() {
+  dogElement.style.backgroundImage = `url(${dogs[getRandomArrId(dogs.length)]})`;
+}
+
+//Expresión de función: 
+
+const procrastinate = function() {
+   dogElement.style.backgroundImage = `url(${dogs[getRandomArrId(dogs.length)]})`;
 }
