@@ -625,3 +625,33 @@ function procrastinate() {
 const procrastinate = function() {
    dogElement.style.backgroundImage = `url(${dogs[getRandomArrId(dogs.length)]})`;
 }
+
+//Valores predeterminados: 
+function makeBeastArray(a = "Koala", b = "Wómbat", c = "Perezoso") {
+  return [a, b, c];
+}
+
+//Una función que encuentra el menor valor de un array:
+function findSmallestInt(arr) {
+  const smallest = Math.min(...arr);
+  return smallest;
+}
+
+//Ejemplo de función en DOM: 
+function openPopup(popupElement) {
+    popupElement.classList.add("popup_is-opened");
+}
+popupButton.addEventListener("click", function () {
+    openPopup(popup);
+});
+
+//Ejemplo de una función que saca el promedio (se puede hacer un if en cadena):
+function getGrade (s1, s2, s3) {
+  const average = (s1 + s2 + s3) / 3;
+
+  if (average >= 90) return 'A';
+  if (average >= 80) return 'B';
+  if (average >= 70) return 'C';
+  if (average >= 60) return 'D';
+  if (average >= 0) return 'F';
+}
