@@ -276,3 +276,19 @@ function isEqual(firstObj, secondObj) {
     return firstObj[key] === secondObj[key];
   });
 }
+
+//A shallow copy example:
+function shallowCopy(obj) {
+  return Object.assign({}, obj);
+}
+
+const myObj = {
+  one: 1,
+  two: 2,
+  three: 3,
+};
+
+const myObjCopy = shallowCopy(myObj); //Call the function to create a shallow copy of myObj
+console.log(myObjCopy); // { one: 1, two: 2, three: 3 }
+
+console.log(myObjCopy === myObj); // false
