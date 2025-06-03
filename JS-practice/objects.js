@@ -292,3 +292,51 @@ const myObjCopy = shallowCopy(myObj); //Call the function to create a shallow co
 console.log(myObjCopy); // { one: 1, two: 2, three: 3 }
 
 console.log(myObjCopy === myObj); // false
+
+//A beautiful code that creates a shallow copy with an empty object to turn fishes into frogs ONLY when the function is called:
+
+function evolution(obj, key, value) {
+  const newObj = Object.assign({}, obj);
+  newObj[key] = value;
+  return newObj;
+}
+const fish = {
+  eggs: "huevas",
+  eyes: 2,
+  habitat: "agua",
+};
+const frog = evolution(fish, "legs", 4); //You call the function and use the const fish as the object to copy, and add the new key and value.
+
+console.log("rana: ", frog);
+// rana: {eggs: "huevas", eyes: 2, habitat: "agua", legs: 4}
+console.log("pez: ", fish);
+// pez: {eggs: "huevas", eyes: 2, habitat: "agua")
+
+//A deep copy example:
+
+const aladdinSane = {
+  artist: "David Bowie",
+  album: "Aladdin Sane",
+  year: 1973,
+  tracks: {
+    // An object with the tracks of the album
+    "Watch That Man": "4:30",
+    "Aladdin Sane": "5:06",
+    "Drive-In Saturday": "4:33",
+    "Panic in Detroit": "4:25",
+    "Cracked Actor": "3:01",
+    Time: "5:15",
+    "The Prettiest Star": "3:31",
+    "Let's Spend the Night Together": "3:10",
+    "The Jean Genie": "4:07",
+    "Lady Grinning Soul": "3:54",
+  },
+};
+
+const aladdinSaneCopy = Object.assign({}, aladdinSane, {
+  //You open the object tracks with {}
+  tracks: Object.assign({}, aladdinSane.tracks, {}), //You copy the actual object and extract the tracks object to copy it too
+});
+//Create a new object, copy all the key-value pairs from aladdinSane.tracks, and then (optionally) add or overwrite some of them with the third object
+
+console.log(aladdinSane.tracks === aladdinSaneCopy.tracks); // false
