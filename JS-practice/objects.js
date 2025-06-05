@@ -340,3 +340,15 @@ const aladdinSaneCopy = Object.assign({}, aladdinSane, {
 //Create a new object, copy all the key-value pairs from aladdinSane.tracks, and then (optionally) add or overwrite some of them with the third object
 
 console.log(aladdinSane.tracks === aladdinSaneCopy.tracks); // false
+
+//Functions are objects too, so you can add properties to them:
+function counter() {
+  // Si esta propiedad aún no existe, la inicializamos en 0
+  if (!counter.times) {
+    counter.times = 0;
+  }
+  // Incrementamos la propiedad times cada vez que se llama la función
+  counter.times += 1;
+  // Devolvemos el número actual de llamadas
+  return counter.times;
+}

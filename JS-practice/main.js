@@ -665,3 +665,43 @@ function getGrade (s1, s2, s3) {
     else if (avg < 90) return "B";
     else return "A";
 }
+
+
+titleInput.addEventListener("keydown", function (evt) {
+  if (evt.key === "Enter") {
+    addSong(artistInput.value, titleInput.value); //You get the values written by the user with the property .value
+  }
+}); 
+
+artistInput.addEventListener("keydown", function (evt) {
+if (evt.key === "Enter") {
+  addSong(artistInput.value, titleInput.value);
+}
+});
+
+//Ahora lo mismo, refactorizado:
+function keyHandler(evt) {
+  if (evt.key === "Enter") {
+    addSong(artistInput.value, titleInput.value);
+  }
+}
+
+titleInput.addEventListener("keydown", keyHandler);
+artistInput.addEventListener("keydown", keyHandler);
+
+//A beautiful function to get a random element from an array:
+const coverHeading = document.querySelector(".cover__heading");
+const playListTitles = [
+  "Música clásica de ascensor - Volumen IV",
+  "Canciones para hacer calceta",
+  "Mis canciones de gaita favoritas"
+];
+
+function getRandomElement(arr) {
+  const randomId = Math.floor(Math.random() * arr.length);
+  return arr[randomId];
+}
+
+coverHeading.addEventListener("dblclick", () => {
+  coverHeading.textContent = getRandomElement(playListTitles);
+});
