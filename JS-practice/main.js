@@ -751,3 +751,17 @@ function keyHandler(evt) {
       evt.target.classList.toggle("song__like_active");
     }
   });
+
+  //A function to add a song to the playlist:
+  form.addEventListener("submit", (evt) => {
+  addSong(artistInput.value, titleInput.value);
+  artistInput.value = ""; //The "" cleans up the input field after adding the song
+  titleInput.value = "";
+});
+
+//Another way to clean up a form (which I prefer):
+form.addEventListener("submit", (evt) => {
+  evt.preventDefault();
+  addSong(artistInput.value, titleInput.value);
+  form.reset(); //cleaner 
+});
