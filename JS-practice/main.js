@@ -742,3 +742,12 @@ function keyHandler(evt) {
   });
   //Conclusion: evt.target is my best friend 
   
+  //But now there's a problem: if you click aywhere in the container, it will toggle the class on that element, not just on the song like button.
+  //So this is how you fix the bug:
+    songElement.querySelector(".song__artist").textContent = artistValue;
+  songElement.querySelector(".song__title").textContent = titleValue;
+  songsContainer.addEventListener("click", function (evt){
+    if (evt.target.classList.contains("song__like")){ //Appplied a condition to check if the clicked element has the class "song__like"
+      evt.target.classList.toggle("song__like_active");
+    }
+  });
