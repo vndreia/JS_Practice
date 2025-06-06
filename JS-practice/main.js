@@ -705,3 +705,33 @@ function getRandomElement(arr) {
 coverHeading.addEventListener("dblclick", () => {
   coverHeading.textContent = getRandomElement(playListTitles);
 });
+
+//First removeEventListener that makes the code run only once:
+function doubleClickHandler(evt) {                            
+  coverHeading.textContent = getRandomElement(playListTitles);
+  coverHeading.removeEventListener("dblclick", doubleClickHandler); //Inside the function, you remove the event listener, this way it only runs once
+}
+
+coverHeading.addEventListener("dblclick", doubleClickHandler);
+
+//An oulipian function that prevents the user to write the letter "e" or "E" in the input fields:
+function keyHandler(evt) {
+  if (evt.key === "Enter") {
+    addSong(artistInput.value, titleInput.value);
+  }
+  else if (evt.key === "e" || evt.key === "E") 
+  {
+    evt.preventDefault(); // This prevents the default action of the key press, which is to type the letter "e" or "E"
+  }
+  console.log(evt.key); //Registers any key pressed
+}
+
+//Now this is the same function as above, but refactored:
+function keyHandler(evt) {
+  if (evt.key === "Enter") {
+    addSong(artistInput.value, titleInput.value);
+  }
+   if (evt.key.toLowerCase() === "e") {
+     evt.preventDefault();
+   }
+}
