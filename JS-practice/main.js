@@ -735,3 +735,10 @@ function keyHandler(evt) {
      evt.preventDefault();
    }
 }
+
+//This is a very powerful yet simple function that toggles the class "song__like_active" on the clicked song element:
+  songsContainer.addEventListener("click", function (evt){  //I selected the container to avoid adding an event listener to each song individually
+    evt.target.classList.toggle("song__like_active");  //The evt.target references the element that was clicked without needing to specify it
+  });
+  //Conclusion: evt.target is my best friend 
+  
