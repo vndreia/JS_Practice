@@ -765,3 +765,11 @@ form.addEventListener("submit", (evt) => {
   addSong(artistInput.value, titleInput.value);
   form.reset(); //cleaner 
 });
+
+//The refactorized function to add a song to the playlist:
+form.addEventListener("submit", function (evt) {
+  evt.preventDefault();
+  addSong(artist.value, title.value);
+  artist.value = "";
+  title.value = "";
+})
