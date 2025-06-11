@@ -129,7 +129,7 @@ enableValidation();
 //This function checks whether any input element in the list is invalid by iterating over them and evaluating their validity property
 function hasInvalidInput(inputList) { 
  return inputList.some((inputElement) => {
-  return !inputElement.validity.valid;
+  return !inputElement.validity.valid; //This function returns true if at least one input element in the list does not pass its built-in validity check 
 });
 }
 
