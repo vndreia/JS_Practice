@@ -95,7 +95,6 @@ const setEventListeners = (formElement) => {
   // Encuentra todos los campos dentro del formulario y
   // crea un array a partir de estos, utilizando el método Array.from()
   const inputList = Array.from(formElement.querySelectorAll(".form__input"));
-
   // Itera sobre el array obtenido
   inputList.forEach((inputElement) => {
     // agrega el controlador de eventos de entrada a cada campo
@@ -103,7 +102,9 @@ const setEventListeners = (formElement) => {
       // Llama a la función isValid() dentro del callback
       // y pásale el formulario y el elemento a comprobar
       isValid(formElement, inputElement)
+      toggleButtonState(inputList, buttonElement);
     });
+    toggleButtonState(inputList, buttonElement);
   });
 };
 
@@ -117,6 +118,11 @@ const enableValidation = () => {
     formElement.addEventListener("submit", (evt) => {
       // Cancela el comportamiento por defecto de cada formulario
       evt.preventDefault();
+    });
+    // Select all fieldsets inside the form and set up event listeners for each
+    const fieldsetList = Array.from(formElement.querySelectorAll(".form__set"));
+    fieldsetList.forEach((fieldset) => {
+      setEventListeners(fieldset);
     });
     // Llama a la función setEventListeners() para cada formulario
     // tomando un elemento del formulario como argumento
@@ -133,6 +139,14 @@ function hasInvalidInput(inputList) {
 });
 }
 
+//A function to deactivate the button is some of the inputs are invalid:
+function toggleButtonState(inputList, buttonElement) {
+  if (hasInvalidInput(inputList)) {
+      buttonElement.classList.add("button_inactive");
+  } else {
+    buttonElement.classList.remove("button_inactive");
+  }
+}
 //My very last questtion: 
 
 const formError = form.querySelector(`.${formInput.id}-error`);
