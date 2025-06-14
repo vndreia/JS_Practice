@@ -22,44 +22,11 @@ form.addEventListener("submit", function (evt) {
 });
 
 //A form being manipulated and validated example:
-
 const formElement = document.querySelector(".form");
-const formInput = formElement.querySelector(".form__input");
-const formError = formElement.querySelector(`.${formInput.id}-error`); //Generates a new CSS Dynamic class name ".email-input-error" because the ID of formElement is "Id= email-input"
-
-const showError = (input, errorMessage) => { //By adding errorMessage as a parameter, the errorMessage will be in the right place
-  input.classList.add("form__input_type_error");
-  formError.textContent = errorMessage;
-  formError.classList.add("form__input-error_active");
-}; 
-
-const hideError = (input) => {
-  input.classList.remove("form__input_type_error");
-};
-
-const checkInputValidity = () => {
-  if (!formInput.validity.valid) {  //Access to the form inpute properties: validity.valid, which in boolean returns true if it is true.
-    showError(formInput, formInput.validationMessage); //Access to the default validation message set by the browser to show in the input when there´s a mistake
-  } else { //Hides the error if the inpuit is valid
-    hideError(formInput);  
-  }
-};
-
-
-formElement.addEventListener("submit", function (evt) {
-  evt.preventDefault();
-});
-
-formInput.addEventListener("input", function () {
-  checkInputValidity();
-});
- 
-//The code but refactored:
-const form = document.querySelector(".form");
 const formInput = form.querySelector(".form__input");
 const formError = form.querySelector(`.${formInput.id}-error`);
 
-const showInputError = (formElement, inputElement, errorMessage) => {
+const showInputError = (formElement, inputElement, errorMessage) => {  //By adding errorMessage as a parameter, the errorMessage will be in the right place
   inputElement.classList.add("form__input_type_error");
   errorElement.textContent = errorMessage;
   errorElement.classList.add("form__input-error_active");
@@ -147,6 +114,3 @@ function toggleButtonState(inputList, buttonElement) {
     buttonElement.classList.remove("button_inactive");
   }
 }
-//My very last questtion: 
-
-const formError = form.querySelector(`.${formInput.id}-error`);
