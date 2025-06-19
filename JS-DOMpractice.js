@@ -46,7 +46,6 @@ const likeButtonElement = document.createElement("button");
 
  trackContainer.append(artistElement, titleElement, likeButtonElement)
 //append agrega esos elementos al DOM.
-}
 //insertAdjacentHTML not needed anymore. Previous code makes it safer
   /*
    songsContainer.insertAdjacentHTML("beforeend", `
@@ -87,3 +86,5 @@ Le estás pasando una función para que la guarde y la ejecute después, cuando 
 function addSong(artistValue, titleValue) {
   const songTemplate = document.querySelector("#song-template").content;
 }*/
+
+
