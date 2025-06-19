@@ -40,7 +40,6 @@ const lastCharacter = subject[subject.length - 1];
 console.log(lastCharacter);
 
 /*When you're accessing a character directly from a string (like with subject[subject.length - 1]), you don't need to use template literals (${}) because you're just directly assigning or referencing the value.
-
 Template literals are used when you want to embed expressions or variables into a string.*/
 
 const learningIsFunSentence = "Learning is fun.";
@@ -53,3 +52,13 @@ console.log(sentence.indexOf("love"));
 
 // returns -1
 console.log(sentence.indexOf("hate"));
+
+//A function that returns a double charactered string:
+function doubleChar(str) {
+  return str
+    .split("")
+    .map((letter) => letter.repeat(2))
+    .join("");
+}
+// Example usage:
+console.log(doubleChar("hello")); // "hheelllloo"

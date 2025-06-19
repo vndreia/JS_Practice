@@ -352,3 +352,50 @@ function counter() {
   // Devolvemos el número actual de llamadas
   return counter.times;
 }
+
+//A function that creates a song object with a title, artist, and a like method
+function createSong(title, artist) {
+  // crea un objeto llamado newSong
+  const newSong = {
+    title,
+    artist,
+    isLiked: false,
+    like: function () {
+      newSong.isLiked = !newSong.isLiked;
+    },
+  };
+
+  return newSong; // haz "return" en este objeto
+}
+
+const song1 = createSong("Chanel", "Frank Ocean");
+const song2 = createSong("Circles", "Mac Miller");
+const song3 = createSong(
+  "Until I Walk Through The Flames",
+  "Wicca Phase Springs Eternal"
+);
+//Although the function createSong works, it's not convenient form RAM memory, because it creates a new function every time you call it.
+
+//So you optimize the function by using "this"
+function like() {
+  this.isLiked = !this.isLiked;
+}
+
+function createSong(title, artist) {
+  return {
+    title,
+    artist,
+    isLiked: false,
+    like: like, // apunta a la misma función
+  };
+}
+
+//  prueba cómo funcionan los datos y la funcionalidad conjuntamente/
+console.log(song1.isLiked); // false
+song1.like(); //This was a toggle
+console.log(song1.isLiked); // true
+
+//Example of a manual togggle:
+let isLiked = false; //isLiked is initialized as false
+isLiked = !isLiked; //If isLiked is false, then !isLiked willl be true, but now isLiked will be true
+//Now isLiked is true, and !isLiked will be false
