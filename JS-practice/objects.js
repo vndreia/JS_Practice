@@ -485,3 +485,69 @@ class PodcastEpisode {
     return `${minutes}:${seconds > 9 ?  seconds : 0 + seconds}`;
   }
 }
+
+//Now we turn the METHOD getFormattedDuration into private, because it´s not necessary.
+//We implicitly take the duration inside getEpisodeInfo, that's why
+//EXAMPLE:
+
+getEpisodeInfo() {
+    return `${this._artist}. "${this._title}" - ${this._guest} (${this._getFormattedDuration()})`;
+  }
+
+  _getFormattedDuration() {
+    const minutes = Math.floor(this._duration / 60); // el número total de minutos
+    const seconds = this._duration % 60; // el resto de la división por 60
+    return `${minutes}:${seconds > 9 ?  seconds : 0 + seconds}`;
+  }
+
+  //If we want to optimize even more, we can use the SUPER() and EXPANDS() method from the new class AudioItem:
+  class AudioItem {
+  constructor(title, artist) {
+    this._artist = artist;
+    this._title = title;
+    this.isLiked = false;
+  }
+  like() {
+    this.isLiked = !this.isLiked;
+  }
+}
+
+class Song extends AudioItem {
+  constructor(releaseYear) {
+    super(artist, title);
+    this._releaseYear = releaseYear;
+    this.isLiked = false;
+  }
+
+  like() {
+    this.isLiked = !this.isLiked;
+  }
+
+  getSongInfo() {
+    return `${this._artist} - ${this._title} (${this._releaseYear})`
+  }
+}
+
+class PodcastEpisode extends AudioItem {
+  constructor(guest, duration) {
+    super(artist, title);
+    this._guest = guest;
+    this._duration = duration;
+    this.isLiked = false;
+  }
+
+  like() {
+    this.isLiked = !this.isLiked;
+  }
+
+  getEpisodeInfo() {
+    return `${this._artist}. "${this._title}" - ${this._guest} (${this._getFormattedDuration()} seconds)`;
+  }
+
+  _getFormattedDuration() {
+    const minutes = Math.floor(this._duration / 60); // el número total de minutos
+    const seconds = this._duration % 60; // el resto de la división por 60
+    return `${minutes}:${seconds > 9 ?  seconds : 0 + seconds}`;
+  }
+}
+
