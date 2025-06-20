@@ -374,7 +374,7 @@ const song3 = createSong(
   "Until I Walk Through The Flames",
   "Wicca Phase Springs Eternal"
 );
-//Although the function createSong works, it's not convenient form RAM memory, because it creates a new function every time you call it.
+//Although the function createSong works, it's not convenient for RAM memory, because it creates a new function every time you call it.
 
 //So you optimize the function by using "this"
 function like() {
@@ -399,3 +399,47 @@ console.log(song1.isLiked); // true
 let isLiked = false; //isLiked is initialized as false
 isLiked = !isLiked; //If isLiked is false, then !isLiked willl be true, but now isLiked will be true
 //Now isLiked is true, and !isLiked will be false
+
+
+//CLASS 
+//Ahora nuestros objetos de podcast se describen ellos mismos. 
+class PodcastEpisode {
+  constructor(title, artist, guest, duration) {
+   this.title = title;
+    this.artist = artist;
+    this.isLiked = false;
+    this.guest = guest;
+    this.duration = duration;
+  }
+  like() {
+    isLiked = !this.isLiked;
+  }
+  getEpisodeInfo() {
+    return `${this.artist}. "${this.title}" - ${this.guest} (${this.duration} seconds)`;
+  }
+}
+
+// Now let's get a complete version of the CLASS above, with an optimized version: 
+class PodcastEpisode {
+  constructor(title, artist, guest, duration) {
+   this.title = title;
+    this.artist = artist;
+    this.isLiked = false;
+    this.guest = guest;
+    this.duration = duration;
+  }
+  like() {
+    isLiked = !this.isLiked;
+  }
+  
+  getEpisodeInfo() {  //Calling for the getFormattedDuration to put it in action 
+    return `${this.artist}. "${this.title}" - ${this.guest} (${this.getFormattedDuration()} seconds)`;
+  }
+  
+  getFormattedDuration() {
+    const minutes = Math.floor(this.duration / 60); /*Math floor is like the strict teacher, you will always get a round number, no matter how high you get. This divides
+    the duration between seconds to get the min*/
+    const seconds = this.duration % 60; /*Then you get the division's residue to get the seconds left*/ 
+    return `${minutes}:${seconds > 9 ? seconds : "0" + seconds};` //Ternary operator: condition ? expiftrue : expiffalse
+  } 
+}
