@@ -500,7 +500,7 @@ getEpisodeInfo() {
     return `${minutes}:${seconds > 9 ?  seconds : 0 + seconds}`;
   }
 
-  //If we want to optimize even more, we can use the SUPER() and EXPANDS() method from the new class AudioItem:
+  //If we want to optimize even more, we can use the SUPER() and EXTENDS() method from the new class AudioItem:
   class AudioItem {
   constructor(title, artist) {
     this._artist = artist;

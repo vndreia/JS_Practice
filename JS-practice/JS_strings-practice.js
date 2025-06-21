@@ -62,3 +62,14 @@ function doubleChar(str) {
 }
 // Example usage:
 console.log(doubleChar("hello")); // "hheelllloo"
+
+//Some practice function
+function greet (name, owner) {
+ const greeting = name === owner ? 'Hello boss' : 'Hello guest';
+  return greeting;
+}
+
+//Now optimized:
+function greet(name, owner) {
+  return name === owner ? 'Hello boss' : 'Hello guest';
+}
