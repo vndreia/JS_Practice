@@ -14,3 +14,9 @@ person.greet(); // "Hi, I'm Andrea"
 //Here 'this' refers to the object that owns the method (person)
 //It's not recommended to use 'this' keyword for arrow functions, because they don't have that property
 //It's better when you write explicitlly the kind of var you extract properties from
+
+//OMG functions CAN have MORE than 1 return:
+function getInfoList(students) {
+  if (!Array.isArray(students)) return []; // 1️⃣ primer caso: NO es un array
+  return students.map(student => student.getInfo()); // 2️⃣ segundo caso: SÍ es un array
+}

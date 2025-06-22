@@ -550,4 +550,36 @@ class PodcastEpisode extends AudioItem {
     return `${minutes}:${seconds > 9 ?  seconds : 0 + seconds}`;
   }
 }
+//Now we write a function to show which Audio Type is each one
+function getAudioInfo(audioList) {
+  audioList.forEach((audioItem) => {
+    if (audioItem.getSongInfo) {
+      console.log(audioItem.getSongInfo()); //We write console.log(audioItem.getSongInfo()) to now only show the function, but to execute it inside console.log
+      //And display its return value in the console
+    } else if (audioItem.getEpisodeInfo) {
+      console.log(audioItem.getEpisodeInfo());
+    }
+  });
+}
+//An example of polimorphyds, which is a serie of classes with same methods reecting in different ways:
+class Paciente {
+  realizarTerapia() {
+    console.log("Respuesta general a la terapia.");
+  }
+}
 
+class PacienteConAnsiedad extends Paciente {
+  realizarTerapia() {
+    console.log("Me siento más tranquilo después de la sesión.");
+  }
+}
+
+class PacienteConDepresion extends Paciente {
+  realizarTerapia() {
+    console.log("Me cuesta participar, pero empiezo a sentir alivio.");
+  }
+}
+
+const pacientes = [new PacienteConAnsiedad(), new PacienteConDepresion()];
+
+pacientes.forEach(p => p.realizarTerapia());
