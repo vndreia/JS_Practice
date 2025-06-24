@@ -641,3 +641,14 @@ function getAudioInfo(audioList) {
 
 
 getAudioInfo(list);
+/*A partir de ahora, 
+añadir una nueva clase solo requerirá
+ implementar el método getInfo() dentro de esa clase,
+ sin tener que modificar la función getAudioInfo(). */
+
+ //AN EXAMPLE YOU CAN CREATE A PROPERTY ANYWHERE:
+ generateCard() {
+  this._element = this._getTemplate();
+  // ...
+  return this._element;
+}
