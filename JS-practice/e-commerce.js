@@ -43,6 +43,7 @@ class Card {
     this._element.querySelector(".card__title").textContent = this._title;
     this._element.querySelector(".card__info").textContent = this._description;
     this._element.querySelector(".card__price-property").textContent = this._price;
+    this._setEventListeners(); //Add de event listeners for each card
      
     return this._element;
   }
@@ -56,6 +57,15 @@ class Card {
     popupImage.src = ""; //Cleans up the prev image
     popupElement.classList.remove("popup_is-opened");
   }
+
+  _setEventListeners() { //Setting the listeners for the popup image to close/open
+  this._element.addEventListener("click", (evt) => {
+    this._handleOpenPopup()
+ });
+    popupCloseButton.addEventListener("click", (evt) => {
+      this._handleClosePopup()
+  });
+}
 }
 
 items.forEach((item) => {
