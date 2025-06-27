@@ -652,3 +652,68 @@ añadir una nueva clase solo requerirá
   // ...
   return this._element;
 }
+
+//Otro buen ejemplo para mensajes dinámicos en el que para el usuario no se muestra la imagen:
+class Card {
+  constructor(cardSelector) { // ahora aquí hay solo un parámetro - el selector
+    this._cardSelector = cardSelector;
+  }
+
+  // todos los métodos de la clase van a continuación
+}
+
+class UserCard extends Card {
+  constructor(data, cardSelector) {
+    // la palabra clave super llama al constructor de la clase padre
+    // con un solo argumento que es el selector de plantilla
+    super(cardSelector);
+
+    // la tarjeta de usuario solo tiene texto
+    this._text = data.text;
+  }
+
+  // el método generateCard() va a continuación
+}
+
+class DefaultCard extends Card {
+  constructor(data, cardSelector) {
+    // llama al constructor del padre de la misma manera
+    super(cardSelector);
+
+    // la persona que está en el otro extremo tiene ahora un avatar y un texto
+    this._text = data.text;
+    this._image = data.image;
+  }
+
+  // generateCard() va a continuación
+}
+/*Código no optimizado:
+Ahora tan solo tenemos que añadir una condición para iterar sobre nuestro array messageList. 
+Recuerda que se pueden crear diferentes instancias de la clase en función del valor de la propiedad isOwner, así que vamos a utilizarla:
+messageList.forEach((item) => {
+  // Si el valor de isOwner === true,
+  // se crea una instancia de UserCard,
+  // en caso contrario se crea DefaultCard
+
+  const card = item.isOwner
+    ? new UserCard(item, ".card-template_type_user")
+    : new DefaultCard(item, ".card-template_type_default");
+
+  const cardElement = card.generateCard();
+
+  document.body.append(cardElement);
+});*/
+
+//C+odigo anterior optimizado:
+const renderElements = (isGrid) => {
+  cardList.innerHTML = ""; // vacía el contenido del contenedor
+  items.forEach((item) => {
+ const card = isGrid
+      ? new DefaultCard(item, ".default-card")
+      : new HorizontalCard(item, ".horizontal-card");
+    
+    const cardElement = card.generateCard();
+    cardList.append(cardElement);
+  });
+}
+renderElements();
