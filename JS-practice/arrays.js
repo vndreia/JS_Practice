@@ -773,3 +773,18 @@ form.addEventListener("submit", function (evt) {
   artist.value = "";
   title.value = "";
 })
+//This is an array that usually shows how to render messages:
+const messageList = [
+  {
+    image: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_card__image.jpg",
+    text: "Hola, ¡tenemos que configurar nuestro chat lo antes posible!"
+  },
+  {
+    text: "Aquí está la tarjeta de chat del usuario.",
+    isOwner: true //  la propiedad isOwner se ha agregado al mensaje del usuario
+  },
+  {
+    image: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_card__image.jpg",
+    text: "¡La respuesta!"
+  }
+];
