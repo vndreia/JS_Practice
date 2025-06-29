@@ -717,3 +717,80 @@ const renderElements = (isGrid) => {
   });
 }
 renderElements();
+
+//Ejemplo de Horacio:
+const obj = {};
+
+// POO --> Plantilla -->
+
+// 1. Definicion de clase
+class Person {
+  //   2. Definir contructor y sus propiedades
+  constructor(name, age) {
+    this._name = name;
+    this.age = age;
+  }
+  // 3. Definir los metodos
+  greet() {
+    console.log(
+      `Hello, my name is ${this._name} and I am ${this.age} years old.`
+    );
+  }
+
+  _eat() {}
+
+  walk() {}
+
+  sayHi() {
+    this.greet();
+  }
+}
+
+// 4. Instanciar la clase
+const person1 = new Person("Alice", 30);
+const person2 = new Person("Bob", 25); 
+
+
+// 5. Llamar metodos de la clase
+person1.greet();
+person1.sayHi();
+
+
+//Segundo ejemplo con manipulación de DOM:
+class Button {
+  constructor(label, color) {
+    this.label = label;
+    this.color = color;
+  }
+
+  renderButton() {
+    const button = document.createElement("button");
+    button.textContent = this.label;
+    button.style.backgroundColor = this.color;
+    button.style.color = "#fff";
+    button.style.border = "none";
+    button.style.padding = "10px 20px";
+    button.style.borderRadius = "5px";
+    button.style.cursor = "pointer";
+
+    button.addEventListener("click", () => {
+      alert(`Button ${this.label} clicked!`);
+    });
+
+    return button;
+  }
+
+  addButtonToDOM() {
+    const button = this.renderButton();
+    const container = document.querySelector(".container");
+    container.appendChild(button);
+  }
+}
+
+const button1 = new Button("Click Me", "blue");
+const button2 = new Button("Submit", "green");
+const button3 = new Button("Cancel", "red");
+
+button1.addButtonToDOM();
+button2.addButtonToDOM();
+button3.addButtonToDOM();
