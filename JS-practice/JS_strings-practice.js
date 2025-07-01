@@ -64,12 +64,47 @@ function doubleChar(str) {
 console.log(doubleChar("hello")); // "hheelllloo"
 
 //Some practice function
-function greet (name, owner) {
- const greeting = name === owner ? 'Hello boss' : 'Hello guest';
+function greet(name, owner) {
+  const greeting = name === owner ? "Hello boss" : "Hello guest";
   return greeting;
 }
 
 //Now optimized:
 function greet(name, owner) {
-  return name === owner ? 'Hello boss' : 'Hello guest';
+  return name === owner ? "Hello boss" : "Hello guest";
 }
+
+//About export and import:
+export const alphaWord = "άλφα";
+export const LAMBDA_SYMBOL = "λ";
+
+export let currentSymbol;
+//The loop can't be exported directly, but the variable currentSymbol can be used outside this module after importing it.
+for (let i = 0; i < alphaWord.length; i += 1) {
+  currentSymbol = alphaWord[i];
+
+  if (currentSymbol === LAMBDA_SYMBOL) {
+    console.log(`${alphaWord} contains ${LAMBDA_SYMBOL}`);
+    break;
+  }
+}
+//The loop has ran, so when I import currentSymbol, it will have the value of the last character in alphaWord, which is "α".
+
+//How to import everything from a module all at once:
+//lib.js
+export const alphaWord = "άλφα";
+export const LAMBDA_SYMBOL = "λ";
+
+export let currentSymbol;
+
+for (let i = 0; i < alphaWord.length; i += 1) {
+  currentSymbol = alphaWord[i];
+
+  if (currentSymbol === LAMBDA_SYMBOL) {
+    console.log(`${alphaWord} contains ${LAMBDA_SYMBOL}`);
+    break;
+  }
+}
+//index.js
+import * as all from "./lib.js";
+console.log(all.symbol);
