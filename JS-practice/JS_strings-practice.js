@@ -1,3 +1,7 @@
+//cuando haces:
+console.log(window);
+//Estás imprimiendo en la consola del navegador el objeto global window, que contiene prácticamente todas las propiedades y métodos del entorno del navegador.
+
 console.log("Hi there!");
 
 const botName = "teacherBot";
