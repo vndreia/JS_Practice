@@ -87,4 +87,7 @@ function addSong(artistValue, titleValue) {
   const songTemplate = document.querySelector("#song-template").content;
 }*/
 
-
+//A SUPER TIP TO MAKE SOME ELEMENT DISAPPEAR AFTER 'SOME TIME':
+setTimeout(() => {
+  console.log("Hola después de 2 segundos");
+}, 2000);
