@@ -794,3 +794,68 @@ const button3 = new Button("Cancel", "red");
 button1.addButtonToDOM();
 button2.addButtonToDOM();
 button3.addButtonToDOM();
+
+function Book(title, author, year) {
+  this.title = title;
+  this.author = author;
+  this.year = year;
+}
+
+Book.prototype.getAge = function() {
+  const currentYear = new Date().getFullYear();
+  const years = currentYear - this.year;
+  return `${this.title} is ${years} years old`;
+};
+
+const book1 = new Book("1984", "George Orwell", 1949);
+console.log(book1.getAge()); // "1984 is 76 years old" (en 2025)
+
+//Polymorphydm example in class object:
+
+// demos un método simple a nuestra sencilla clase Animal
+class Animal {
+  constructor(name, favFood, species) {
+    this.name = name;
+    this.species = species;
+  }
+  getInfo() {
+    const info = {
+      name: this.name,
+      species: this.species
+    }
+    return info;
+  }
+}
+
+class Parakeet extends Animal {
+  constructor(name) {
+    super(name);                
+    this.species = 'parakeet';
+  }
+}
+
+const parakeet = new Parakeet('Arlo');
+// la clase hija tiene acceso a todos los métodos de la clase padre
+console.log(parakeet.getInfo());  // { name: 'Arlo, species: 'parakeet' }
+
+// crea una nueva clase hija
+class Human extends Animal {
+  // puedes tener argumentos adicionales para el constructor de la clase hija
+  constructor(name, job) {     
+     super(name);
+     this.name = name;
+     this.job = job;
+     this.species = 'human';
+  }
+  // podemos hacer que getInfo sea más informativo
+  getInfo() {  
+    // también puedes llamar a otros métodos de la clase padre con super
+    const info = super.getInfo();  // devuelve {name: this.name, species: 'human'}
+    info.job = this.job;
+    info.canFly = false;
+    return info;
+  }
+}
+
+const human = new Human('Kevin', 'summarizer');
+human.getInfo();  // {name: 'Kevin', species: 'human', job: 'summarizer', canFly: false}
