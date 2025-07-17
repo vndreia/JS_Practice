@@ -859,3 +859,16 @@ class Human extends Animal {
 
 const human = new Human('Kevin', 'summarizer');
 human.getInfo();  // {name: 'Kevin', species: 'human', job: 'summarizer', canFly: false}
+
+
+//DESESTRUCTURACIÓN DE OBJETOS:
+//Ejem:
+const formulario = {
+  elements: {
+    artist: "Lana Del Rey",
+    song: "Young and Beautiful"
+  }
+};
+//Desestructuración directa de artist y song:
+
+const { artist, song } = formulario.elements;
