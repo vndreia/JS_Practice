@@ -794,39 +794,157 @@ const button3 = new Button("Cancel", "red");
 button1.addButtonToDOM();
 button2.addButtonToDOM();
 button3.addButtonToDOM();
-//END OF THE CODE SNIPPET
 
-//ANOTHER CLASS EXAMPLE:
-export default class Section {
-  constructor({data}, containerSelector) {
-    this._renderedItems = data;
-    this._container = document.querySelector(containerSelector);
-}
-setItem(element) {
-  this._container.append(element);
-}
-clear() {
-  this._container.innerHTML = "";
+function Book(title, author, year) {
+  this.title = title;
+  this.author = author;
+  this.year = year;
 }
 
- renderItems(isGrid) {
-   this.clear();
-   this._renderedItems.forEach((item) => {
-     const card = isGrid
-    ? new DefaultCard(item, ".default-card")
-    : new HorizontalCard(item, ".horizontal-card");
+Book.prototype.getAge = function() {
+  const currentYear = new Date().getFullYear();
+  const years = currentYear - this.year;
+  return `${this.title} is ${years} years old`;
+};
 
-  const cardElement = card.generateCard();
-  this.setItem(cardElement);
-   })
- }
-  
+const book1 = new Book("1984", "George Orwell", 1949);
+console.log(book1.getAge()); // "1984 is 76 years old" (en 2025)
+
+//Polymorphydm example in class object:
+
+// demos un método simple a nuestra sencilla clase Animal
+class Animal {
+  constructor(name, favFood, species) {
+    this.name = name;
+    this.species = species;
+  }
+  getInfo() {
+    const info = {
+      name: this.name,
+      species: this.species
+    }
+    return info;
+  }
 }
 
+class Parakeet extends Animal {
+  constructor(name) {
+    super(name);                
+    this.species = 'parakeet';
+  }
+}
 
-//A beautiful example of instantiating inside a forEach to recreate dynamic and seemingly components:
-items.forEach((item) => {
-  const card = isGrid //IF isGrid is true, then create a DefaultCard, otherwise create a HorizontalCard
-    ? new DefaultCard(item, ".default-card")
-    : new HorizontalCard(item, ".horizontal-card");
-});
+const parakeet = new Parakeet('Arlo');
+// la clase hija tiene acceso a todos los métodos de la clase padre
+console.log(parakeet.getInfo());  // { name: 'Arlo, species: 'parakeet' }
+
+// crea una nueva clase hija
+class Human extends Animal {
+  // puedes tener argumentos adicionales para el constructor de la clase hija
+  constructor(name, job) {     
+     super(name);
+     this.name = name;
+     this.job = job;
+     this.species = 'human';
+  }
+  // podemos hacer que getInfo sea más informativo
+  getInfo() {  
+    // también puedes llamar a otros métodos de la clase padre con super
+    const info = super.getInfo();  // devuelve {name: this.name, species: 'human'}
+    info.job = this.job;
+    info.canFly = false;
+    return info;
+  }
+}
+
+const human = new Human('Kevin', 'summarizer');
+human.getInfo();  // {name: 'Kevin', species: 'human', job: 'summarizer', canFly: false}
+
+
+//DESESTRUCTURACIÓN DE OBJETOS:
+//Ejem:
+const formulario = {
+  elements: {
+    artist: "Lana Del Rey",
+    song: "Young and Beautiful"
+  }
+};
+//Desestructuración directa de artist y song:
+
+const { artist, song } = formulario.elements;
+
+//Working with objects and accessing to them:
+
+const recipes = [];
+
+const recipe1 = {
+  name: 'Spaghetti Carbonara',
+  ingredients: ['spaghetti', 'Parmesan cheese', 'pancetta', 'black pepper'],
+  cookingTime: 22,
+  totalIngredients: null,
+  difficultyLevel: '',
+  ratings: [4, 5, 4, 5],
+  averageRating: null,
+};
+
+const recipe2 = {
+  name: 'Chicken Curry',
+  ingredients: ['chicken breast', 'coconut milk', 'curry powder', 'onion', 'garlic'],
+  cookingTime: 42,
+  totalIngredients: null,
+  difficultyLevel: '',
+  ratings: [4, 5, 5, 5],
+  averageRating: null,
+};
+
+const recipe3 = {
+  name: 'Vegetable Stir Fry',
+  ingredients: ['broccoli', 'carrot', 'bell pepper'],
+  cookingTime: 15,
+  totalIngredients: null,
+  difficultyLevel: '',
+  ratings: [4, 3, 4, 5],
+  averageRating: null,
+};
+
+recipes.push(recipe1, recipe2, recipe3);
+
+function getAverageRating(ratings) {
+  const total = ratings[0] + ratings[1] + ratings[2] + ratings[3];
+  return total / ratings.length;
+}
+
+function getTotalIngredients(ingredients) {
+  return ingredients.length;
+}
+
+function getDifficultyLevel(cookingTime) {
+  if (cookingTime <= 30) {
+    return 'easy';
+  } else if (cookingTime <= 60) {
+    return 'medium';
+  } else {
+    return 'hard';
+  }
+}
+
+const recipe1AverageRating = getAverageRating(recipe1.ratings);
+console.log(recipe1AverageRating);
+
+const recipe1TotalIngredients = getTotalIngredients(recipe1.ingredients);
+console.log(recipe1TotalIngredients);
+
+const recipe1DifficultyLevel = getDifficultyLevel(recipe1.cookingTime);
+console.log(recipe1DifficultyLevel);
+
+recipe1.averageRating = getAverageRating(recipe1.ratings);
+recipe1.totalIngredients = getTotalIngredients(recipe1.ingredients)
+recipe1.difficultyLevel = getDifficultyLevel(recipe1.cookingTime)
+
+recipe2.averageRating = getAverageRating(recipe2.ratings);
+recipe2.totalIngredients = getTotalIngredients(recipe2.ingredients);
+recipe2.difficultyLevel = getDifficultyLevel(recipe2.cookingTime);
+
+recipe3.averageRating = getAverageRating(recipe3.ratings);
+recipe3.totalIngredients = getTotalIngredients(recipe3.ingredients)
+recipe3.difficultyLevel = getDifficultyLevel(recipe3.cookingTime)

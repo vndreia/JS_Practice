@@ -40,6 +40,7 @@ const double = function (num) {
 /*Algo que puede ocurrir es que si otro desarrollador declara una variable button,
  no afectará a tu código ni al suyo. Tu variable permanece a salvo dentro del scope de tu IIFE.*/
 
+<<<<<<< HEAD
 function SeriesSum(n) {
   // 1. Si n es 0, devolver "0.00" directamente
   if (n === 0) return "0.00";
@@ -82,3 +83,37 @@ countUserPosts(user1); //This access to the whole user object, so I don't need t
 
 //Function with destructuring:
 const countUserPosts = ({ posts }) => posts.length; //Access directly to the posts property of the user object
+=======
+
+ //A beautiful example of a function to get an average rating of difficulty recipes:
+ const getAverageRating = function(arr) {
+  const sum =  arr.reduce((acc, curr) => {
+    return acc + curr;
+  }, 0);  //0 is the initializer value
+  return sum / arr.length;
+}
+
+//Create a getTotalIngredients function that takes a single argument, representing an array with ingredients, and returns the number of ingredients from the array passed to the function.
+function getTotalIngredients(ingredients) {
+  return recipe.ingredients.length; //Already access recipe ingredients
+}
+//Get the difficulty level of a recipe based on cookingTime
+function getDifficultyLevel(cookingTime) {
+  if (cookingTime <= 30) {
+    return "easy";
+  } else if (cookingTime <= 60) {
+    return "medium";
+  } else {
+    return "hard";
+  }
+}
+
+//Ang logging the results:
+const recipe1AverageRating = getAverageRating(recipe1.ratings);
+console.log(recipe1AverageRating);
+const recipe1TotalIngredients = getTotalIngredients(recipe1); //No need to enter recipe1.ingredients bc the function already did
+console.log(recipe1TotalIngredients);
+const recipe1DifficultyLevel = getDifficultyLevel(recipe1.cookingTime);
+console.log(recipe1DifficultyLevel);
+
+>>>>>>> 19004f07ddb1c9432a65d6eb030c03966c198c7d
