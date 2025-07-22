@@ -949,3 +949,32 @@ recipe2.difficultyLevel = getDifficultyLevel(recipe2.cookingTime);
 recipe3.averageRating = getAverageRating(recipe3.ratings);
 recipe3.totalIngredients = getTotalIngredients(recipe3.ingredients)
 recipe3.difficultyLevel = getDifficultyLevel(recipe3.cookingTime)
+
+//A CLASS EXAMPLE:
+export default class Section {  //Section is a class that normally renders a list of items in a container
+  constructor({data}, containerSelector) {
+    this._renderedItems = data;
+    this._container = document.querySelector(containerSelector);
+}
+setItem(element) {
+  this._container.append(element);
+}
+clear() {
+  this._container.innerHTML = ""; //Clear the container before rendering new items
+}
+
+ renderItems(isGrid) {  //An example of instantiating inside a forEach to render items in a dynamic way and creating similar components
+   this._container.innerHTML = ""; //Clear the container before rendering new items
+   this.clear();
+   this._renderedItems.forEach((item) => { 
+     const card = isGrid   //If isGrid is true, then create a DefaultCard, otherwise create a HorizontalCard
+    ? new DefaultCard(item, ".default-card")
+    : new HorizontalCard(item, ".horizontal-card");
+
+  const cardElement = card.generateCard();
+  this.setItem(cardElement); //Call the setItem method to append the cardElement to the container
+   })
+ }
+  
+}
+
