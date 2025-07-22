@@ -978,3 +978,4 @@ clear() {
   
 }
 
+const defaultCardList = new Section ({data: items}, cardListSelector); //Por qué se instancia así?
