@@ -945,6 +945,7 @@ recipe2.averageRating = getAverageRating(recipe2.ratings);
 recipe2.totalIngredients = getTotalIngredients(recipe2.ingredients);
 recipe2.difficultyLevel = getDifficultyLevel(recipe2.cookingTime);
 
+
 recipe3.averageRating = getAverageRating(recipe3.ratings);
 recipe3.totalIngredients = getTotalIngredients(recipe3.ingredients)
 recipe3.difficultyLevel = getDifficultyLevel(recipe3.cookingTime)
