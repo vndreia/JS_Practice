@@ -39,3 +39,46 @@ const double = function (num) {
 
 /*Algo que puede ocurrir es que si otro desarrollador declara una variable button,
  no afectará a tu código ni al suyo. Tu variable permanece a salvo dentro del scope de tu IIFE.*/
+
+function SeriesSum(n) {
+  // 1. Si n es 0, devolver "0.00" directamente
+  if (n === 0) return "0.00";
+
+  // 2. Inicializar variable para acumular la suma
+  let suma = 0;
+
+  // 3. Recorrer desde i = 0 hasta i < n
+  for (let i = 0; i < n; i++) {
+    // 3a. Calcular denominador que crece de 3 en 3, empezando en 1
+    let denominador = 1 + 3 * i;
+
+    // 3b. Sumar la fracción correspondiente
+    suma += 1 / denominador;
+  }
+
+  // 4. Devolver la suma redondeada a 2 decimales como string
+  return suma.toFixed(2);
+}
+
+//Function without destructuring:
+const countUserPosts = (user) => {
+  return user.posts.length;
+};
+
+const user1 = {
+  id: 2294611830,
+  username: "leonardo.dv",
+  posts: [
+    { comment: "Hombre de Vitruvio", dateCreated: 1490 },
+    { comment: "Retrato de un músico", dateCreated: 1490 },
+    {
+      comment: "Retrato de un hombre con tiza roja #autorretrato",
+      dateCreated: 1512,
+    },
+  ],
+};
+
+countUserPosts(user1); //This access to the whole user object, so I don't need to pass it below in the destructured function:
+
+//Function with destructuring:
+const countUserPosts = ({ posts }) => posts.length; //Access directly to the posts property of the user object

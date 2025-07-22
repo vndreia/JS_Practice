@@ -794,3 +794,39 @@ const button3 = new Button("Cancel", "red");
 button1.addButtonToDOM();
 button2.addButtonToDOM();
 button3.addButtonToDOM();
+//END OF THE CODE SNIPPET
+
+//ANOTHER CLASS EXAMPLE:
+export default class Section {
+  constructor({data}, containerSelector) {
+    this._renderedItems = data;
+    this._container = document.querySelector(containerSelector);
+}
+setItem(element) {
+  this._container.append(element);
+}
+clear() {
+  this._container.innerHTML = "";
+}
+
+ renderItems(isGrid) {
+   this.clear();
+   this._renderedItems.forEach((item) => {
+     const card = isGrid
+    ? new DefaultCard(item, ".default-card")
+    : new HorizontalCard(item, ".horizontal-card");
+
+  const cardElement = card.generateCard();
+  this.setItem(cardElement);
+   })
+ }
+  
+}
+
+
+//A beautiful example of instantiating inside a forEach to recreate dynamic and seemingly components:
+items.forEach((item) => {
+  const card = isGrid //IF isGrid is true, then create a DefaultCard, otherwise create a HorizontalCard
+    ? new DefaultCard(item, ".default-card")
+    : new HorizontalCard(item, ".horizontal-card");
+});
