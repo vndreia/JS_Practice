@@ -979,3 +979,62 @@ clear() {
 }
 
 const defaultCardList = new Section ({data: items}, cardListSelector); //Por qué se instancia así?
+
+//TIGHT COUPLING EXAMPLE:
+renderItems() {
+  this._initialArray.forEach((item) => {
+    const card = item.isOwner
+      ? new UserCard(item, ".card-template_type_user")
+      : new DefaultCard(item, ".card-template_type_default");
+  
+    const cardElement = card.generateCard();
+
+    this.setItem(cardElement);
+  });
+}
+
+//LOOSE COUPLING EXAMPLE:
+class Section {
+  constructor({ renderer }) {
+    this._renderer = renderer;
+  }
+
+  renderItems(items) {
+    items.forEach((item) => {
+      const cardElement = this._renderer(item); // función externa
+      this.setItem(cardElement);
+    });
+  }
+}
+
+//and then you can use it like this:
+
+const section = new Section({
+  renderer: (item) => {
+    const card = item.isOwner
+      ? new UserCard(item, ".card-template_type_user")
+      : new DefaultCard(item, ".card-template_type_default");
+    return card.generateCard();
+  },
+});
+
+//No entendí que pasó aquí:
+const horizontalCardList = new Section({data: items, renderer: () =>{} }, cardListSelector);
+
+//Data contains an items array 
+//and renderer is a function that will be used to render each item in the list, it tells the Section class how to render each item in the list.
+//cardListSelector is the selector of the container where the items will be rendered.
+class Section {
+  constructor({ data, renderer }, containerSelector) { //Por qué data y renderer están juntos?
+    this._data = data;
+    this._renderer = renderer;
+    this._container = document.querySelector(containerSelector);
+  }
+
+  renderItems() {
+    this._data.forEach((item) => {
+      const element = this._renderer(item); // 👈 función externa
+      this.setItem(element);
+    });
+  }
+}
