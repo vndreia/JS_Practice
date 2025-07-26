@@ -40,58 +40,13 @@ const double = function (num) {
 /*Algo que puede ocurrir es que si otro desarrollador declara una variable button,
  no afectará a tu código ni al suyo. Tu variable permanece a salvo dentro del scope de tu IIFE.*/
 
-<<<<<<< HEAD
-function SeriesSum(n) {
-  // 1. Si n es 0, devolver "0.00" directamente
-  if (n === 0) return "0.00";
-
-  // 2. Inicializar variable para acumular la suma
-  let suma = 0;
-
-  // 3. Recorrer desde i = 0 hasta i < n
-  for (let i = 0; i < n; i++) {
-    // 3a. Calcular denominador que crece de 3 en 3, empezando en 1
-    let denominador = 1 + 3 * i;
-
-    // 3b. Sumar la fracción correspondiente
-    suma += 1 / denominador;
-  }
-
-  // 4. Devolver la suma redondeada a 2 decimales como string
-  return suma.toFixed(2);
-}
-
-//Function without destructuring:
-const countUserPosts = (user) => {
-  return user.posts.length;
-};
-
-const user1 = {
-  id: 2294611830,
-  username: "leonardo.dv",
-  posts: [
-    { comment: "Hombre de Vitruvio", dateCreated: 1490 },
-    { comment: "Retrato de un músico", dateCreated: 1490 },
-    {
-      comment: "Retrato de un hombre con tiza roja #autorretrato",
-      dateCreated: 1512,
-    },
-  ],
-};
-
-countUserPosts(user1); //This access to the whole user object, so I don't need to pass it below in the destructured function:
-
-//Function with destructuring:
-const countUserPosts = ({ posts }) => posts.length; //Access directly to the posts property of the user object
-=======
-
- //A beautiful example of a function to get an average rating of difficulty recipes:
- const getAverageRating = function(arr) {
-  const sum =  arr.reduce((acc, curr) => {
+//A beautiful example of a function to get an average rating of difficulty recipes:
+const getAverageRating = function (arr) {
+  const sum = arr.reduce((acc, curr) => {
     return acc + curr;
-  }, 0);  //0 is the initializer value
+  }, 0); //0 is the initializer value
   return sum / arr.length;
-}
+};
 
 //Create a getTotalIngredients function that takes a single argument, representing an array with ingredients, and returns the number of ingredients from the array passed to the function.
 function getTotalIngredients(ingredients) {
@@ -116,4 +71,24 @@ console.log(recipe1TotalIngredients);
 const recipe1DifficultyLevel = getDifficultyLevel(recipe1.cookingTime);
 console.log(recipe1DifficultyLevel);
 
->>>>>>> 19004f07ddb1c9432a65d6eb030c03966c198c7d
+//Another function example:
+
+function getBookSummaries(catalog) {
+  return catalog.map((book) => book.about).join("\n"); //The arrow function is telling book to return the 'about' property of each book object
+}
+console.log(getBookSummaries(library));
+//This function takes an array of book objects and returns a string with the summaries of each book, separated by new lines.
+// "/n" is a newline character, so the summaries will be printed on separate lines in the console.
+//Join is a method that separates the elements of an array into a string, using the specified separator (in this case, a newline character).s
+
+//A function that has the filter() method:
+function getBooksByAuthor(library, author) {
+  return library.filter((book) => book.author === author); //I almost hardcoded the author, but I made it dynamic by passing it as a parameter
+}
+
+// This function takes a library (an array of book objects) and an author name as parameters.
+function getBooksByAuthor(catalog, author) {
+  return catalog.filter((book) => book.author === author);
+}
+//This is where we pass the library and the author name to the function
+console.log(getBooksByAuthor(library, "Arvid Kahl"));

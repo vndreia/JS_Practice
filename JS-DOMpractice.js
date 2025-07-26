@@ -16,38 +16,38 @@ function renderNoSongs() {
   noSongsElement.classList.remove("no-songs_hidden");
 }
 
-function addSong(artistValue, titleValue) {  
-  const songTemplate = document.querySelector("#song-template").content;  //Selecciona el contenido dentro de template
-  const songElement = songTemplate.querySelector('.song').cloneNode(true); //Se hace un deep clone con true de todo lo que está dentro de template
+function addSong(artistValue, titleValue) {
+  const songTemplate = document.querySelector("#song-template").content; //Selecciona el contenido dentro de template
+  const songElement = songTemplate.querySelector(".song").cloneNode(true); //Se hace un deep clone con true de todo lo que está dentro de template
   songElement.querySelector(".song__artist").textContent = artistValue; //Busca dentro del clon de tu template un elemento con la clase .song__artist
-  songElement.querySelector(".song__title").textContent = titleValue; 
-   // Encuentra el botón de "me gusta"
-  const likeButton = songElement.querySelector(".song__like").addEventListener("click", function(evt){
-  });
+  songElement.querySelector(".song__title").textContent = titleValue;
+  // Encuentra el botón de "me gusta"
+  const likeButton = songElement
+    .querySelector(".song__like")
+    .addEventListener("click", function (evt) {});
   // 🟢 Crea el controlador de clics que muestra el evento en consola
-  likeButton.addEventListener('click', function(evt) {
-     evt.target.classList.toggle("song__like_active");  //Le agrega los styles de active al botón 
+  likeButton.addEventListener("click", function (evt) {
+    evt.target.classList.toggle("song__like_active"); //Le agrega los styles de active al botón
   });
-    // Añade la canción al contenedor
+  // Añade la canción al contenedor
   songsContainer.append(songElement);
 }
 
+const artistElement = document.createElement("h4");
+artistElement.classList.add("song__artist");
+artistElement.textContent(artistValue);
 
-  const artistElement = document.createElement("h4");
-  artistElement.classList.add("song__artist");
-  artistElement.textContent(artistValue);
-  
-   const titleElement = document.createElement("p");
+const titleElement = document.createElement("p");
 titleElement.classList.add("song__title");
-  titleElement.textContent(titleValue);
+titleElement.textContent(titleValue);
 
 const likeButtonElement = document.createElement("button");
-  likeButtonElement.classList.add("song__like");
+likeButtonElement.classList.add("song__like");
 
- trackContainer.append(artistElement, titleElement, likeButtonElement)
+trackContainer.append(artistElement, titleElement, likeButtonElement);
 //append agrega esos elementos al DOM.
 //insertAdjacentHTML not needed anymore. Previous code makes it safer
-  /*
+/*
    songsContainer.insertAdjacentHTML("beforeend", `
     <div class="song">
       <h4 class="song__artist">${artistValue}</h4>
@@ -68,7 +68,7 @@ addButton.addEventListener("click", function () {
   title.value = "";
 });
 
-//Aquí hay un método addEventListener con una función como parámetro. 
+//Aquí hay un método addEventListener con una función como parámetro.
 
 resetButton.addEventListener("click", function () {
   // ← ESTA es la función que se ejecutará cuando hagan click
@@ -91,3 +91,7 @@ function addSong(artistValue, titleValue) {
 setTimeout(() => {
   console.log("Hola después de 2 segundos");
 }, 2000);
+
+//Esto guarda el selector, no el string en sí:
+export const filterListSelector = ".filter";
+//Not selecting the element from the DOM, just saving the selector in a variable

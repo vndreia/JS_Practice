@@ -1018,14 +1018,12 @@ const section = new Section({
   },
 });
 
-//No entendí que pasó aquí:
-const horizontalCardList = new Section({data: items, renderer: () =>{} }, cardListSelector);
 
 //Data contains an items array 
 //and renderer is a function that will be used to render each item in the list, it tells the Section class how to render each item in the list.
 //cardListSelector is the selector of the container where the items will be rendered.
 class Section {
-  constructor({ data, renderer }, containerSelector) { //Por qué data y renderer están juntos?
+  constructor({ data, renderer }, containerSelector) {
     this._data = data;
     this._renderer = renderer;
     this._container = document.querySelector(containerSelector);
@@ -1038,3 +1036,30 @@ class Section {
     });
   }
 }
+
+//Tight loose
+class ControlRemoto {
+  constructor(volumen, canal, handleChannelChange) { //handleChannelChange comes from the outside 
+    this.volumen = volumen;
+    this.canal = canal;
+    this.handleChannelChange = handleChannelChange; //This is a function that will be called when the channel changes
+  }
+
+  subirVolumen() {
+    this.volumen += 1;
+  
+  }
+
+  cambiarCanal() { //cambiar el canal no cambia, es una funcionalidad de todos los controles remotos
+this.handleChannelChange //Puede ser una marca de TV diferente, por eso la acción de cambiar el canal no cambia, cambia la forma de hacerlo
+  }
+}
+
+//A loose coupling example of a FilterButton class that can be used to filter items in a list based on dynamic data and a button template:
+export default class FilterButton {
+  constructor({ data }, buttonSelector) {
+    // ...
+  }
+}
+//data 👉 es la información dinámica, como lo que escribe un paciente (nombre, edad, etc).
+//buttonSelector 👉 es la "plantilla" o estructura visual en HTML que se va a duplicar o rellenar con esa info (por ejemplo, un <template> de un botón o tarjeta).
