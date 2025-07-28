@@ -1063,3 +1063,22 @@ export default class FilterButton {
 }
 //data 👉 es la información dinámica, como lo que escribe un paciente (nombre, edad, etc).
 //buttonSelector 👉 es la "plantilla" o estructura visual en HTML que se va a duplicar o rellenar con esa info (por ejemplo, un <template> de un botón o tarjeta).
+
+
+//EJEMPLO: 
+//No es que this._isGrid "no exista" como tal, sino que se está creando dentro del constructor a partir de una propiedad que viene dentro de data.
+
+constructor({ data, handleButtonClick }, buttonSelector) {
+  // Aquí accedes a una propiedad llamada "isGrid" dentro del objeto "data"
+  this._isGrid = data.isGrid;
+}
+
+//DESESTRUCTURACIÓN EJEMPLO:
+new ClaseDeYoga({
+  titulo: 'Vinyasa',
+  duracion: 60,
+  nivel: 'intermedio',
+  instructora: 'Andrea',
+  musica: 'Spotify'
+});
+//Es pasar un objeto como argumento, y lo que sucede dentro del constructor, ahí sí es donde entra la desestructuración.
