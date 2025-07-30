@@ -1082,3 +1082,14 @@ new ClaseDeYoga({
   musica: 'Spotify'
 });
 //Es pasar un objeto como argumento, y lo que sucede dentro del constructor, ahí sí es donde entra la desestructuración.
+
+//Ejemplo de desestructuración: 
+const inputValues = {
+  name: 'Sitio de ejemplo',
+  url: 'https://example.com',
+}
+
+function logInfo({ name, url }) { //Al pasar name y url como parámetros le dices a la función que espera un objeto con esas propiedades.
+  console.log(`Nombre del sitio: ${name}`);
+  console.log(`Dirección: ${url}`);
+}
