@@ -1093,3 +1093,38 @@ function logInfo({ name, url }) { //Al pasar name y url como parámetros le dice
   console.log(`Nombre del sitio: ${name}`);
   console.log(`Dirección: ${url}`);
 }
+//Otherwise:
+function logInfo({ name: title, url }) { //Same example but naming the key as title
+  console.log(`Nombre del sitio: ${title}`);
+  console.log(`Dirección: ${url}`);
+}
+
+//An interesting case of a destructured function that takes an object as an argument and destructures it:
+function logStuff({ name, age }, selector) {
+  console.log(name, age, selector);
+}
+
+logStuff('Jacques', 111, '.profile'); //If I do that the console will show: 
+//Undefined undefined 111
+//Because the function expects an object with properties name and age, but I passed three separate arguments instead of an object.
+//First one does not have a name or age property, so both name and age will be undefined, and then selector will get the value of 111 and will ignore the '.profile' string.
+//	Because the function only defines two parameters, this third argument is simply ignored unless you explicitly capture it
+
+//?
+const speak = (thisDog) => {
+  console.log(`${thisDog.name} dice guau`)
+}
+
+class Dog {
+  constructor(name, speak) {
+    this.name = name;
+    this._speak = speak;
+  }
+
+  speak() {
+    this._speak(this) //Acá se guarda la función speak 
+  }
+}
+
+const spot = new Dog('Spot', speak); //Acá se pasa la función
+spot.speak();

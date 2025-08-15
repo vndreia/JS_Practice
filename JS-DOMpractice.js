@@ -95,3 +95,49 @@ setTimeout(() => {
 //Esto guarda el selector, no el string en sí:
 export const filterListSelector = ".filter";
 //Not selecting the element from the DOM, just saving the selector in a variable
+
+//A BIG EXAMPLE OF A FUNCTION THAT SELECTS DIFFERENT OPTIONS FROM THE DOM:
+const storyContainer = document.querySelector(".story-container");
+
+const scaryStoryBtn = document.getElementById("scary-btn");
+const funnyStoryBtn = document.getElementById("funny-btn");
+const adventureStoryBtn = document.getElementById("adventure-btn");
+
+const resultParagraph = document.getElementById("result");
+
+const storyObj = {
+  scary: {
+    story: `In the dark woods, a group of friends stumbled upon an old, abandoned cabin. They enter the cabin and awaken something malevolent that had been dormant for centuries.`,
+    borderColor: "#ee4b2b",
+  },
+  funny: {
+    story: `During a camping trip, Mark decided to show off his culinary skills by cooking dinner over an open fire. However, his attempt caused him to burn the dinner as well as his eyebrows off.`,
+    borderColor: "#f1be32",
+  },
+  adventure: {
+    story: `Lost in the heart of the Amazon rain forest, Sarah and Jake stumbled upon an ancient temple. They braved deadly traps and encountered strange wildlife, all while deciphering cryptic clues left behind by a mysterious civilization.`,
+    borderColor: "#acd157",
+  },
+};
+
+function displayStory(genre) {
+  if (storyObj[genre]) {
+    //Check if the genre exists in the storyObj
+    //The brackets assign a dynamic key called genre to the object, as it it was a parameter
+    resultParagraph.textContent = storyObj[genre].story; //Set the text content of the result paragraph to the story of the selected genre
+    storyContainer.style.borderColor = storyObj[genre].borderColor; //Set the border color of the story container to the color associated with the selected genre
+  }
+}
+
+displayStory("scary"); //Calling the function to display the scary story by default
+
+/*The error code:
+caryStoryBtn.addEventListener("click", displayStory("scary")); 
+funnyStoryBtn.addEventListener("click", displayStory("funny"));
+ adventureStoryBtn.addEventListener("click", displayStory("adventure"));*/
+//What happens here is that the function displayStory is called immediately, and it return undefined cuz it has not been processed yet.
+
+//The right way to do it is to execute the function after the click event:
+scaryStoryBtn.addEventListener("click", () => displayStory("scary"));
+funnyStoryBtn.addEventListener("click", () => displayStory("funny"));
+adventureStoryBtn.addEventListener("click", () => displayStory("adventure"));
