@@ -141,3 +141,8 @@ funnyStoryBtn.addEventListener("click", displayStory("funny"));
 scaryStoryBtn.addEventListener("click", () => displayStory("scary"));
 funnyStoryBtn.addEventListener("click", () => displayStory("funny"));
 adventureStoryBtn.addEventListener("click", () => displayStory("adventure"));
+
+//Obtaining a value of a selected element:
+selectContainer.addEventListener("change", (evt) => {
+  console.log(evt.target.value);
+});
