@@ -146,3 +146,95 @@ adventureStoryBtn.addEventListener("click", () => displayStory("adventure"));
 selectContainer.addEventListener("change", (evt) => {
   console.log(evt.target.value);
 });
+
+//The wrong code to filter the instrument dropdown list:
+function instrumentCards(instrumentCategory) {
+  instrumentCategory.filter(
+    (instrumentCategory) => instrumentCategory === instrumentsArr.category
+  );
+  return instrumentCategory; //When the return is before, the if never gets executed, Return marks the end of the function
+  if (instrumentCategory === "All") {
+    return instrumentsArr;
+  }
+}
+
+//-------------------------------------------------------------------------------
+//The correct code to filter the instrument dropdown list:
+//is filtering the list of instruments based on what you select from the dropdown (instrumentCategory):
+//If you pick "all", it returns the whole instruments array (instrumentsArr).
+//Otherwise, it returns only the instruments whose category matches the selected category.
+const instrumentsArr = [
+  { category: "woodwinds", instrument: "Flute", price: 500 },
+  { category: "woodwinds", instrument: "Clarinet", price: 200 },
+  { category: "woodwinds", instrument: "Oboe", price: 4000 },
+  { category: "brass", instrument: "Trumpet", price: 200 },
+  { category: "brass", instrument: "Trombone", price: 300 },
+  { category: "brass", instrument: "French Horn", price: 4300 },
+  { category: "percussion", instrument: "Drum Set", price: 500 },
+  { category: "percussion", instrument: "Xylophone", price: 3000 },
+  { category: "percussion", instrument: "Cymbals", price: 200 },
+  { category: "percussion", instrument: "Marimba", price: 3000 },
+];
+
+const selectContainer = document.querySelector("select");
+const productsContainer = document.querySelector(".products-container");
+
+//The right code to filter the instrument dropdown list:
+function instrumentCards(instrumentCategory) {
+  if (instrumentCategory === "all") {
+    return instrumentsArr; //Lets say we have an array called instrumentsArr, this will return the whole array
+  }
+  return instrumentsArr.filter(
+    //You can use return straight away to return the processed array
+    (instrument) => instrument.category === instrumentCategory //Instrument is just the parameter for the arrow function, doesn't
+    //need brackets because it's just one parameter
+  );
+}
+
+selectContainer.addEventListener("change", () => {
+  //Calling the function when the event changes, better be said when customer selects a different option
+  console.log(instrumentCards(selectContainer.value)); //This will log the filtered array based on the selected value
+});
+
+//Another way to write the instrumentCards function:
+function instrumentCards(instrumentCategory) {
+  //It's amazing. Sometimes I forget how many things you can save in a variable
+  //You can save the value of the selected option in a variable:
+  const instruments =
+    instrumentCategory === "all" //condition ? doittrue : doitfalse
+      ? instrumentsArr
+      : instrumentsArr.filter(
+          //Hey, this { category } is not a block, it’s an object destructuring pattern — so please parse it as a parameter
+          ({ category }) => category === instrumentCategory //Category isn't the parameter, the object is.
+          //it doesn´t really matter the name of the object being passed, but it matters the function knows that an object is expected to extract the property straight out of it
+        );
+
+  return instruments;
+}
+
+//In JS when you write a function (including an arrow function inside a map), the parameter names are "invented" in that context
+function instrumentCards(instrumentCategory) {
+  const instruments =
+    instrumentCategory === "all"
+      ? instrumentsArr
+      : instrumentsArr.filter(
+          ({ category }) => category === instrumentCategory
+        );
+  //Function that renders the HTML when iterating through each object of the instruments array with the map method: (Each object represents a card)
+  return instruments
+    .map(({ instrument, price }) => {
+      //So intitially there were not any instrument nor price variables globally defined
+      //But now you created them as parameters of the arrow function inside the map method
+      return `<div class="card">  //So your map method expects to extract the instrument and price properties from each object in the instruments array
+          <h2>${instrument}</h2>
+          <p>$${price}</p>
+        </div>`;
+    })
+    .join(""); //Join the array of HTML strings for the default array commas to be removed
+}
+
+selectContainer.addEventListener("change", (e) => {
+  //E is the event object, target is the element that triggered the event, and value is the value of the selected option
+  const category = e.target.value; // If I don't save the value selected for the container, I won't be able to reuse it later
+  productsContainer.innerHTML = instrumentCards(category); //Selects the container where the cards will be rendered with the innerHTML property passing the instrumentCards function
+});

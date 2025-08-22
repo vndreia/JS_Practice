@@ -1128,3 +1128,49 @@ class Dog {
 
 const spot = new Dog('Spot', speak); //Acá se pasa la función
 spot.speak();
+
+//DESESTRUCTURACIÓN EXAMPLE:
+// objeto de ejemplo
+const data = {
+  cardTemplateSelector: '.card-template',
+  handleCardClick: handleCardClick           // definido en otra parte
+}
+
+// asignar sin desestructurar -- tú eliges el nombre de la variable
+const selector = data.cardTemplateSelector;
+const onCardClick = data.handleCardClick;
+
+// el nombre de la variable debe coincidir con el nombre de la propiedad
+const { cardTemplateSelector, handleCardClick } = data;
+console.log(cardTemplateSelector);  // '.card-template'
+handleCardClick();                  // llama a handleCardClick
+
+//EX:
+const obj = { a: 1, b: 2 };
+  
+  const {
+    a: A,   // El valor 1 pasa del "recipiente" obj.a al "recipiente" A  
+    b: B // El valor 2 pasa del "recipiente" obj.b al "recipiente" B
+  } = obj;
+  
+  console.log(A, B);  // 1 2
+  console.log(a, b);  // uncaught reference error: a is undefined (error de referencia no detectado: a no está definido).
+  
+  //But why is this useful?
+  // Respuesta típica de una API
+const apiResponse = {
+  u: "maria_garcia",
+  fn: "María",
+  ln: "García", 
+  e: "maria@email.com",
+  dob: "1990-05-15"
+};
+
+// Desestructuración con cambio de nombre
+const {
+  u: username,
+  fn: firstName,
+  ln: lastName,
+  e: email,
+  dob: dateOfBirth
+} = apiResponse;
