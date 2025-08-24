@@ -238,3 +238,24 @@ selectContainer.addEventListener("change", (e) => {
   const category = e.target.value; // If I don't save the value selected for the container, I won't be able to reuse it later
   productsContainer.innerHTML = instrumentCards(category); //Selects the container where the cards will be rendered with the innerHTML property passing the instrumentCards function
 });
+
+//----------------------------------------------------------------------------------
+
+//Function to create random options for a rock, paper, scissors game
+
+const options = ["Rock", "Paper", "Scissors"]; 
+function getRandomComputerResult(arr){ 
+  const randomNumber = Math.floor(Math.random() * arr.length); //Math.floor rounds the array number of elements after Math.random is multiplied
+  //for the number of items in the array with length property. Math.random is the one that gets a random number in decimals between 0 and 1
+  return arr[randomNumber];  //randomNumber const saved the result as an array and this is like doing arr[1], because
+  //When we call getRandomComputerResult(arr), inside the function option = ["Rock", "Paper", "Scissors"].
+}
+
+//When you define the const options inside the function:
+//The const options then has local scope, and it makes it safer, in case someone else's call another var as options, so It doesn't break
+//If there's a global options variable
+function getRandomComputerResult(){
+  const options = ["Rock", "Paper", "Scissors"];
+  const randomNumber = Math.floor(Math.random() * options.length);
+  return options[randomNumber];
+}
