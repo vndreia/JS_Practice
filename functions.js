@@ -92,3 +92,45 @@ function getBooksByAuthor(catalog, author) {
 }
 //This is where we pass the library and the author name to the function
 console.log(getBooksByAuthor(library, "Arvid Kahl"));
+
+//-------------------------------------------------------------
+//HIGHER ORDER FUNCTIONS
+//ASYNC JS AND CALLBACKS
+//A callback function is a function that is passed as an argument to another function and is executed after some operation has been completed.
+//EXAMPLE:
+const tweets = [
+  "algún hilo raro",
+  "una respuesta al tweet de Elon Musk",
+  "reacción a las noticias de última hora",
+];
+
+function forEach(arr, callback) {
+  for (let i = 0; i < arr.length; i++) {
+    //arr.length allows flexibility in the array size
+    callback(arr[i]); //I don't need to return anything, just call the callback function with the current element
+    //Callback is just a name by convention, it could be anything!!!!!!!!!!!!!!!!!!!!
+    //arr[i] takes the first element, then the second, iterating through the array
+  }
+}
+
+forEach(tweets, function (tweet) {
+  console.log(tweet);
+});
+
+//ONLOAD asyn event example:
+function imageLoadCallback(evt) {
+  //evt is the when the image load is in process
+  document.body.append(evt.target); //evt.target its the image that was loaded
+}
+
+function loadImage(imageUrl, loadCallback) {
+  const img = document.createElement("img"); // creates <img> but doesn't add it to the DOM
+  img.src = imageUrl; //URL is assigned to the src attribute of the img element
+
+  img.onload = loadCallback; //when the image is FINALLY loaded, execute the loadCallback function
+}
+
+//Calling the actual function:
+loadImage("https://yastatic.net/q/logoaas/v1/Practicum.svg", imageLoadCallback);
+
+//ONLOAD means literally: when the image is loaded, do this
