@@ -134,3 +134,11 @@ function loadImage(imageUrl, loadCallback) {
 loadImage("https://yastatic.net/q/logoaas/v1/Practicum.svg", imageLoadCallback);
 
 //ONLOAD means literally: when the image is loaded, do this
+//-------------------------------------------------------------
+//This reminds a lot to classes and objects:
+function loadImage(imageUrl, loadCallback, errorCallback) {
+  const img = document.createElement("img");
+  img.src = imageUrl;
+  img.onload = loadCallback;
+  img.oneerror = errorCallback;
+}
