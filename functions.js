@@ -140,5 +140,32 @@ function loadImage(imageUrl, loadCallback, errorCallback) {
   const img = document.createElement("img");
   img.src = imageUrl;
   img.onload = loadCallback;
-  img.oneerror = errorCallback;
+  img.onerror = errorCallback;
 }
+
+//This is an interesting EXAMPLE:
+function consoleDate() {
+  const date = new Date(); //Date is a global JS object, so you can instantiate it
+  console.log(`${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`); //These are actual global JS methods
+  // No return statement = automatically returns undefined
+}
+
+setInterval(consoleDate(), 1000); //Not quite right, because you are calling the functions right away, but consoleDare returns nothing
+//So it will give us UNDEFINED
+
+//THE RIGHT WAY:
+setInterval(consoleDate, 1000); //because if I just write consoleDate I am just referencing the function (passing it as a parameter)
+// but if I am using brackets, I am calling the method right away
+
+const newPromise = new Promise(function (resolve, reject) {
+  //Cómo es qué resolve y reject se convierten en métodos?
+  // Aprenderás a enviar peticiones al servidor muy pronto. Por ahora,
+  // determinaremos aleatoriamente si la solicitud ha sido procesada o no
+  const rand = Math.random() > 0.5;
+
+  if (rand) {
+    resolve("Solicitud procesada satisfactoriamente");
+  } else {
+    reject("Solicitud rechazada");
+  }
+});

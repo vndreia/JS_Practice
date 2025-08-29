@@ -241,21 +241,81 @@ selectContainer.addEventListener("change", (e) => {
 
 //----------------------------------------------------------------------------------
 
-//Function to create random options for a rock, paper, scissors game
-
-const options = ["Rock", "Paper", "Scissors"]; 
-function getRandomComputerResult(arr){ 
+//Function to create random options for a rock, paper, scissors game:
+const options = ["Rock", "Paper", "Scissors"];
+function getRandomComputerResult(arr) {
   const randomNumber = Math.floor(Math.random() * arr.length); //Math.floor rounds the array number of elements after Math.random is multiplied
   //for the number of items in the array with length property. Math.random is the one that gets a random number in decimals between 0 and 1
-  return arr[randomNumber];  //randomNumber const saved the result as an array and this is like doing arr[1], because
+  return arr[randomNumber]; //randomNumber const saved the result as an array and this is like doing arr[1], because
   //When we call getRandomComputerResult(arr), inside the function option = ["Rock", "Paper", "Scissors"].
 }
 
 //When you define the const options inside the function:
 //The const options then has local scope, and it makes it safer, in case someone else's call another var as options, so It doesn't break
 //If there's a global options variable
-function getRandomComputerResult(){
+function getRandomComputerResult() {
   const options = ["Rock", "Paper", "Scissors"];
   const randomNumber = Math.floor(Math.random() * options.length);
   return options[randomNumber];
+}
+//Function to determine if the player won the round:
+function hasPlayerWonTheRound(player, computer) {
+  return (
+    (player === "Rock" && computer === "Scissors") || //True
+    (player === "Scissors" && computer === "Paper") || //True
+    (player === "Paper" && computer === "Rock") //True
+  );
+}
+//The || operator will always throw true, UNLESS both sides are false
+
+//The function that shows the result of the game:
+//BUT WRONG:
+function getRoundResults(userOption) {
+  const computerResult = getRandomComputerResult();
+if (hasPlayerWonTheRound === true) {
+  playerScore = 1;
+ return 'Player wins! ${userOption} beats ${computerResult}';
+}
+else if (hasPlayerWonTheRound === false) {
+computerScore = 1;
+return 'Computer wins! ${computerResult} beats ${userOption}');
+}
+else if(userOption === computerResult){
+ return "It's a tie! Both chose ${userOption}"
+}
+}
+
+//It's wrong because in the template literals, you need to use backticks ``, not single quotes ''
+//Not calling the function hasPlayerWonTheRound with the parameters player and computer, only referring to the function itself
+//AND the order of the conditions is wrong, because if the player and computer choose the same option, it will never reach the tie condition
+//The right way to do it:
+function getRoundResults(userOption) {
+  const computerResult = getRandomComputerResult();
+ 
+ if (hasPlayerWonTheRound(computerResult, userOption)) {
+playerScore = 1;
+return `Player wins! ${userOption} beats ${computerResult}`
+ }
+ else if (userOption === computerResult) {
+return `It's a tie! Both chose ${userOption}`
+ }
+ else {
+   return `Computer wins! ${computerResult} beats ${userOption}`;
+ }
+}
+//Control flow matters A LOT
+// Wrong order:
+if (player won) { ... }
+else if (player didn't win) { // This catches EVERYTHING else!
+  return "Computer wins!"; // Ties get caught here too!
+}
+else { // This NEVER runs!
+  return "It's a tie!"; 
+}
+
+// Right order:
+if (player won) { ... }
+else if (it's a tie) { ... } // Check specific case first
+else { // Now this catches only losses
+  return "Computer wins!";
 }
