@@ -303,19 +303,95 @@ return `It's a tie! Both chose ${userOption}`
    return `Computer wins! ${computerResult} beats ${userOption}`;
  }
 }
-//Control flow matters A LOT
-// Wrong order:
-if (player won) { ... }
-else if (player didn't win) { // This catches EVERYTHING else!
-  return "Computer wins!"; // Ties get caught here too!
+//CONTROL FLOW MATTERSS A LOT
+
+//THE ACTUAL RIGHT WAY!!!!!!!!!:
+function getRoundResults(userOption){
+  const computerResult = getRandomComputerResult();
+if (hasPlayerWonTheRound(userOption, computerResult)) {
+    playerScore++;  
+    return `Player wins! ${userOption} beats ${computerResult}`;
+  } else if (userOption === computerResult) {
+    return `It's a tie! Both chose ${userOption}`;
+  } else {
+    computerScore++;
+    return `Computer wins! ${computerResult} beats ${userOption}`;
 }
-else { // This NEVER runs!
-  return "It's a tie!"; 
 }
 
-// Right order:
-if (player won) { ... }
-else if (it's a tie) { ... } // Check specific case first
-else { // Now this catches only losses
-  return "Computer wins!";
+const playerScoreSpanElement = document.getElementById("player-score");
+const computerScoreSpanElement = document.getElementById("computer-score");
+const roundResultsMsg = document.getElementById("results-msg");
+//The show results function:
+//Grabs the element from the DOM and sets its textContent to the result of the getRoundResults function
+function showResults(userOption) {
+roundResultsMsg.innerText = getRoundResults(userOption);
+  computerScoreSpanElement.innerText = computerScore;
+  playerScoreSpanElement.innerText = playerScore;
+};
+//Adding the event listeners to the buttons:
+const rockBtn = document.getElementById("rock-btn");
+const paperBtn = document.getElementById("paper-btn");
+const scissorsBtn = document.getElementById("scissors-btn");
+rockBtn.addEventListener("click", () => {showResults("Rock")});
+paperBtn.addEventListener("click",() => {showResults("Paper")});
+scissorsBtn.addEventListener("click",() => {showResults("Scissors")});
+
+// building out the winner message and reset button functionality:
+function showResults(userOption) {
+   roundResultsMsg.innerText = getRoundResults(userOption);//ORDER MATTERS: You get the result of the round first, THEN you update the scores
+  computerScoreSpanElement.innerText = computerScore;
+  playerScoreSpanElement.innerText = playerScore;
+  
+  if (playerScore === 3) {
+    winnerMsgElement.textContent = "Player has won the game!";
+    resetGameBtn.style.display = "block";
+    optionsContainer.style.display = "none";
+  }
+else if (computerScore === 3){
+  winnerMsgElement.textContent = "Computer has won the game!";
+    resetGameBtn.style.display = "block";
+    optionsContainer.style.display = "none";
+}
+
+};
+
+function resetGame() {
+  // Reset scores to 0
+  playerScore = 0;
+  computerScore = 0;
+  
+  // Update score displays
+  playerScoreSpanElement.textContent = playerScore;
+  computerScoreSpanElement.textContent = computerScore;
+  
+  // Hide reset button
+  resetGameBtn.style.display = "none";
+  
+  // Show options so player can play again
+  optionsContainer.style.display = "block";
+  
+  // Clear winner and round result messages
+  winnerMsgElement.textContent = "";
+  roundResultsMsg.textContent = "";
+}
+//Reset game function:
+function resetGame() {
+  // Reset scores to 0
+  playerScore = 0;
+  computerScore = 0;
+  
+  // Update score displays
+  playerScoreSpanElement.textContent = playerScore;
+  computerScoreSpanElement.textContent = computerScore;
+  
+  // Hide reset button
+  resetGameBtn.style.display = "none";
+  
+  // Show options so player can play again
+  optionsContainer.style.display = "block";
+  
+  // Clear winner and round result messages
+  winnerMsgElement.textContent = "";
+  roundResultsMsg.textContent = "";
 }
