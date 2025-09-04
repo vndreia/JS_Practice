@@ -21,6 +21,16 @@ function getInfoList(students) {
   return students.map((student) => student.getInfo()); // 2️⃣ segundo caso: SÍ es un array
 }
 
+//SOMETHING IMPORTAN TO REMEMBER:
+// Function reference (NOT executed)
+button.addEventListener("click", updateQuote);
+
+// Function execution (executed immediately)
+button.addEventListener("click", updateQuote());
+
+//-------------------------------------------------------------
+//FUNCTION EXPRESSIONS
+
 // una función almacenada en una variable
 const double = function (num) {
   return num * 2;
@@ -169,3 +179,52 @@ const newPromise = new Promise(function (resolve, reject) {
     reject("Solicitud rechazada");
   }
 });
+
+// CASE 1: Simple function call - NO PARENTHESES
+function updateQuote() {
+  // fetch quote logic
+}
+button.addEventListener("click", updateQuote); // ✅ Direct reference
+
+// ====================================================
+
+// CASE 2: Function with parameters - USE ARROW FUNCTION
+function displayQuote(author, quote) {
+  console.log(`${author}: ${quote}`);
+}
+button.addEventListener("click", () => displayQuote("Kanye", "Some quote")); // ✅
+
+// WRONG way:
+// button.addEventListener('click', displayQuote('Kanye', 'Some quote')); // ❌ Executes immediately
+
+// ====================================================
+
+// CASE 3: Multiple actions needed - USE ARROW FUNCTION
+button.addEventListener("click", () => {
+  updateQuote(); // Call the function
+  console.log("Clicked!"); // Do something else
+  showLoader(); // Call another function
+}); // ✅
+
+// ====================================================
+
+// CASE 4: Conditional execution - USE ARROW FUNCTION
+button.addEventListener("click", () => {
+  if (isLoggedIn) {
+    updateQuote();
+  } else {
+    showLoginModal();
+  }
+}); // ✅
+
+// ====================================================
+
+// CASE 5: Using event object - USE ARROW FUNCTION OR DIRECT REFERENCE
+function handleClick(event) {
+  event.preventDefault();
+  updateQuote();
+}
+
+// Both work:
+button.addEventListener("click", handleClick); // ✅ Direct reference
+button.addEventListener("click", (event) => handleClick(event)); // ✅ Explicit passing
