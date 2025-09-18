@@ -1174,3 +1174,47 @@ const {
   e: email,
   dob: dateOfBirth
 } = apiResponse;
+//--------------------------------------------------
+
+//Prtotype and Object.create example:
+//  El prototipo objeto newSong
+const songPrototype = {
+  like: function () {
+    this.isLiked = !this.isLiked;
+  }
+};
+
+function createSong(title, artist) {
+  // crea un objeto vacío con el prototipo
+  const newSong = Object.create(songPrototype);
+
+  // Agrega al objeto todas las propiedades necesarias
+  newSong.title = title;
+  newSong.artist = artist;
+  newSong.isLiked = false;
+
+  // Devuelve el objeto song
+  return newSong;
+}
+
+//Another prototype example:
+const methods = {
+  getFullName: function () {
+    console.log(`${this.firstName} ${this.lastName}`);
+  }
+};
+
+const human = Object.create(methods); //Se almacenó el método o función getFullName ahora dentro del objeto human
+
+human.firstName = "Nikola";
+human.lastName = "Tesla";
+
+human.getFullName(); // "Nikola Tesla"
+
+//Example of a constructor function:
+//This name goes in uppercase because it's a convention to differentiate it from regular functions
+//A constuctor function means it works as a class, so you can create a template to create multiple objects with the same properties and methodss 
+function Tweet (text, user) {
+  this.text = text;
+  this.user = user;
+}  

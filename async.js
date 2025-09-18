@@ -382,7 +382,16 @@ getUser()
     console.log('Got user:', userData);
   });
 
-
+//AnALYZING a response object:
+fetch("https://api.kanye.rest")
+  .then(res => {
+    console.log(res.status); // comprueba el estado de la respuesta
+    console.log(res.headers.get("Content-Type")); // comprueba Content-Type
+    return res.json();
+  })
+  .then((data) => {
+    console.log(data); // ¿Qué ocurre en el cuerpo?
+  });
 
   //THE WHOLE EXAMPLE:
   // crea el marcado del post
@@ -587,3 +596,60 @@ function renderLoading(isLoading){
     content.classList.remove('content_hidden');
   }
   }
+
+  //Now we call the renderLoading function in the submit event listener and in finally:
+  const form = document.forms.search;
+const content = document.querySelector(".content");
+const result = document.querySelector(".content__result");
+const error = document.querySelector(".content__error");
+const spinner = document.querySelector(".spinner");
+
+form.addEventListener("submit", function submit(e) {
+  e.preventDefault();
+  renderLoading(true); // calling the function to show the spinner when the form is submitted
+  search(form.elements.entity.value, form.elements.entityId.value)
+  .then((res) => {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(res.status)
+  })
+  .then((res) => {
+    renderResult(res.name);
+    console.log(res)})
+  .catch((err) => {
+    renderError(`Error: ${err}`);
+    console.log(`Error: ${err}`)
+  })
+  .finally(() => {
+  renderLoading(false); // ← Add false here! Either way, whether the promise is resolved or rejected, we hide the spinner after it's done
+})
+});
+
+
+function search(entity, entityId) {
+  return fetch(`https://swapi.nomoreparties.co/${entity}/${entityId}/`)
+}
+
+function renderResult(text){
+  result.textContent = text;
+  error.textContent = ""; 
+}
+
+function renderError(err){
+  error.textContent = err;
+  result.textContent = "";
+}
+
+function renderLoading(isLoading){
+  if (isLoading){
+    spinner.classList.add('spinner_visible');
+    content.classList.add('content_hidden');
+  }
+  else { 
+    spinner.classList.remove('spinner_visible');
+    content.classList.remove('content_hidden');
+  }
+  }
+  //NOW the user gets visual feedback with the spinner while waiting for the fetch to complete
+  //And the content is hidden while loading to avoid showing stale data

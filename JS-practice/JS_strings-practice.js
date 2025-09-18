@@ -112,3 +112,9 @@ for (let i = 0; i < alphaWord.length; i += 1) {
 //index.js
 import * as all from "./lib.js";
 console.log(all.symbol);
+
+//vowels
+function getCount(str) {
+  const vowels = ["a", "e", "i", "o", "u"];
+  return str.split("").filter((char) => vowels.includes(char)).length;
+}
