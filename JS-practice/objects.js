@@ -1218,3 +1218,51 @@ function Tweet (text, user) {
   this.text = text;
   this.user = user;
 }  
+//Now everytime I call for the function Tweet with the NEW operator, it creates a new object called this, where text and user appear.
+
+//A wrong example:
+Tweet.prototype.post() => {  // ❌ Wrong syntax
+  console.log(this.text);
+  console.log(this.user);
+}
+//The arrow function does not bind its own this, so it takes this from the surrounding lexical context, which is not what we want here
+//The right way:
+Tweet.prototype.post = function() {
+  console.log(this.text);
+  console.log(this.user);
+}
+
+//The whole example:
+function Tweet(text, user) {
+  this.text = text;
+  this.user = user;
+}
+
+Tweet.prototype.post = function () {
+  console.log(this.text);
+  console.log(this.user);
+};
+
+Tweet.prototype.edit = function (text) {
+  this.text = text;
+}
+
+const tweet1 = new Tweet(
+  "El cambio comienza con nosotros como personas. Si una persona se vuelve más compasiva, influirá en los demás y así cambiaremos el mundo",
+  "Dalai Lama"
+);
+
+tweet1.post();
+
+/*
+  "El cambio comienza con nosotros como personas. Si una persona se vuelve más compasiva, influirá en los demás y así cambiaremos el mundo."
+  "Dalai Lama"
+*/
+
+tweet1.edit("No importa");
+tweet1.post();
+
+/*
+  "No importa"
+  "Dalai Lama"
+*/
