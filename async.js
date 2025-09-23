@@ -11,6 +11,17 @@ const newPromise = new Promise(function (resolve, reject) {
   }
 });
 
+//And how this works:
+fetch('/api/data')  // Promise 1: "go get the data"
+  .then(response => {
+    // At this point, we have HEADERS but the BODY might still be streaming in
+    return response.json();  // Promise 2: "parse the body as JSON" and this is an async operation bc parsing the response body can take time
+  })
+  .then(data => {
+    // Now we finally have the parsed JSON data
+  })
+
+
 newPromise
   .then(function (value) {
     // se ejecuta si promise se ha resuelto
@@ -653,3 +664,13 @@ function renderLoading(isLoading){
   }
   //NOW the user gets visual feedback with the spinner while waiting for the fetch to complete
   //And the content is hidden while loading to avoid showing stale data
+
+  //-------------------ANOTHER EXAMPLE----------------------------
+  //We use id to get a specific user as a parameter, because if we wrote id without template literals,it would look for an actual
+  //user with the name "id" which doesn't exist
+  const getUserById = (id) => {  
+  return fetch(`https://jsonplaceholder.typicode.com/users/${id}`)
+    .then(res => res.ok ? res.json() : Promise.reject(`Uh oh! Error: ${res.status}`)) //the res object actually HAS a property called 'ok' which is true if the status code is 200-299
+}
+//is basically saying when the promise inside fetch is solved, and if this response is ok, then parse it now to json,
+// otherwise, call the reject method of promise showing an error message

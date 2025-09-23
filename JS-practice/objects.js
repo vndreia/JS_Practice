@@ -1266,3 +1266,20 @@ tweet1.post();
   "No importa"
   "Dalai Lama"
 */
+
+//Prototype and its prototype 
+const arr = [1, 2, 3];
+console.log(arr.__proto__  );      // First prototype (Array.prototype)
+console.log(arr.__proto__.__proto__ ); // The prototype OF that prototype (Object.prototype)
+
+//Class example with prototype:
+class Rectangle {
+  constructor (width, height) {
+  this.width = width;
+  this.height = height;
+  }
+calculateArea() {
+  return (this.width * this.height);
+}
+}
+//El método calculateArea() aparecerá en Rectangle.prototype

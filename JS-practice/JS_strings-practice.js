@@ -118,3 +118,42 @@ function getCount(str) {
   const vowels = ["a", "e", "i", "o", "u"];
   return str.split("").filter((char) => vowels.includes(char)).length;
 }
+
+//function to only return the result if Robert is playing:
+function areYouPlayingBanjo(name) {
+  if (name.startsWith("r") || name.startsWith("R")) {
+    return `${name} plays banjo`;
+  } else {
+    return `${name} does not play banjo`;
+  }
+}
+//Optimized:
+function areYouPlayingBanjo(name) {
+  return toLowerCase().startsWith("r")
+    ? `${name} plays banjo`
+    : `${name} does not play banjo`;
+}
+
+//toLowerCase() method: doesn't have parameters because its a string method from the string object prototype
+//It converts all the characters in a string to lowercase letters and returns a new string with the converted characters.
+//Example:
+const mixedCaseString = "HeLLo WoRLd!";
+const lowerCaseString = mixedCaseString.toLowerCase();
+console.log(lowerCaseString); // Output: "hello world!"
+// The string IS the data being operated on
+"HELLO".toLowerCase(); // "hello" - operates on "HELLO"
+name.toLowerCase(); // operates on whatever 'name' contains
+
+//Its like real wold objects:
+
+// A car "knows" how to start itself
+car.start(); // No parameters needed
+
+// But needs to be told where to go
+car.driveTo("store"); // Needs destination parameter
+
+// A person "knows" how to stand up
+person.standUp(); // No parameters needed
+
+// But needs to be told what to say
+person.say("hello"); // Needs the words parameter
