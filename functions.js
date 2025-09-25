@@ -228,3 +228,61 @@ function handleClick(event) {
 // Both work:
 button.addEventListener("click", handleClick); // ✅ Direct reference
 button.addEventListener("click", (event) => handleClick(event)); // ✅ Explicit passing
+
+//-------------------------------------------
+// Example function to demonstrate code comparisons
+//This checks if a number is even or odd
+function evenOrOdd(number) {
+  return number % 2 === 0 ? "Even" : "Odd";
+}
+//PROTOTYPE AND STANDALONE FUNCTIONS
+//You can add methods to built-in prototypes like String, Array, etc.
+//This checks if a string is uppercase
+String.prototype.isUpperCase = function () {
+  return this === this.toUpperCase();
+};
+/*Every string in your entire program automatically has the method:
+javascript"HELLO".isUpperCase()           // true*/
+
+//You are using prototype, so this method will be applicable to ALL strings in your program, you JUST
+//Have to call the method on any string instead of passing the string as a parameter to a separate function
+"world".isUpperCase(); // false
+"JavaScript".isUpperCase(); // false
+"CODE".isUpperCase(); // true
+"123!@#".isUpperCase(); // true
+
+//However, modifying built-in prototypes is generally discouraged in JavaScript for several reasons:
+//1. Global pollution - Every string everywhere gets your method:
+//javascript// Some library's code that has nothing to do with you:
+//let libraryString = "internal data";
+//libraryString.isUpperCase(); // Suddenly has your method!
+//2. Naming conflicts - What if another library also adds isUpperCase?
+//javascript// Your code
+//String.prototype.isUpperCase = function() {  your logic }
+
+// Some other library
+//String.prototype.isUpperCase = function() { different logic!}
+// Oops! One overwrites the other
+//3. Unexpected behavior for other developers:
+//javascript// Another dev sees this and thinks "Wait, since when do strings have isUpperCase?!"
+//"hello".isUpperCase()
+//4. Hard to control or remove:
+//Once it's there, it's everywhere. You can't easily "turn it off" for certain parts of your code.
+//That's why standalone functions are more flexible:
+function isUpperCase(str) {
+  return str === str.toUpperCase();
+}
+
+// You control exactly when and where it's used
+// No surprises, no conflicts, easy to test
+
+//HOWEVER that function is wrong, because of the === operator
+//To apply a method to every instance of a type, you need to use prototype
+//Now every string instance has the method isUpperCase
+String.prototype.isUpperCase = function () {
+  return this == this.toUpperCase(); //this refers to the String object instance
+};
+//this doesn't change - it's always the same String object
+/*But toUpperCase() returns a new primitive string, not a String object
+So you're comparing: String object == primitive string
+The == operator converts the String object to primitive for comparison*/
