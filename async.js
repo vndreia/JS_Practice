@@ -674,3 +674,16 @@ function renderLoading(isLoading){
 }
 //is basically saying when the promise inside fetch is solved, and if this response is ok, then parse it now to json,
 // otherwise, call the reject method of promise showing an error message
+
+//A GOOD RULE TO REMEMBER: 
+//If code depends on the server response, it MUST go inside .then() 
+api.addNewCard(formattedValues)  // 🎲 Step 1: Send to server
+  .then((newCardData) => {       // ⏳ Step 2: Wait for response
+    // ↓ These dominoes can only fall AFTER server responds ↓
+    const newCard = new Card(newCardData, cardTemplate);  // 🎲 Step 3
+    const cardImage = newCard._renderCard();              // 🎲 Step 4
+    Section.addItem(cardImage);                           // 🎲 Step 5
+    addPlacePopup.close();                                // 🎲 Step 6
+  });
+
+// ❌ Anything here runs IMMEDIATELY, doesn't wait!
