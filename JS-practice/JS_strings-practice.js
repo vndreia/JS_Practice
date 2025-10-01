@@ -157,3 +157,10 @@ person.standUp(); // No parameters needed
 
 // But needs to be told what to say
 person.say("hello"); // Needs the words parameter
+
+//-------------------ANOTHER EXAMPLE----------------------------
+//Converting DNA to RNA by replacing all occurrences of 'T' with 'U'
+function DNAtoRNA(dna) {
+  return dna.split("T").join("U");
+}
+//this is like saying cut the string when you find a T with split, and then replace it with a U with JOIN
