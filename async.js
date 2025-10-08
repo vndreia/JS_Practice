@@ -688,3 +688,113 @@ api.addNewCard(formattedValues)  // 🎲 Step 1: Send to server
 
 // ❌ Anything here runs IMMEDIATELY, doesn't wait!
 
+
+//Here's a complete example with ASYNC/AWAIT, TRY AND THROW, AND FINALLY:
+javascriptasync function getUserData(userId) {
+  try {  //try to do this code, TRY IS VERY LITERAL
+    console.log('Starting to fetch user data...');
+    
+    // First API call - get user info
+    const userResponse = await fetch(`https://api.example.com/users/${userId}`);
+    
+    // Check if the request was successful
+    if (!userResponse.ok) {
+      throw new Error(`User not found! Status: ${userResponse.status}`); //creates an error object with a message
+    }
+    
+    //.json() is actually asynchronous and returns a Promise, so you need to await it
+    const userData = await userResponse.json(); //theres a promise inside the parse method, so we await it
+    console.log('Got user:', userData.name);
+    
+    // Second API call - get user's posts
+    const postsResponse = await fetch(`https://api.example.com/users/${userId}/posts`);
+    const postsData = await postsResponse.json();
+    console.log(`Found ${postsData.length} posts`);
+    
+    // Return everything
+    return {
+      user: userData,
+      posts: postsData
+    };
+    
+  } catch (error) { //calls out the error if something goes wrong in the try block
+    console.error('Something went wrong:', error.message);
+    return null;
+  } finally { //this runs no matter what, whether the try was successful or the catch caught an error
+    console.log('Finished attempting to fetch data');
+  }
+}
+
+// Using the function
+getUserData(123);
+
+//-----------------------------------------
+//THIS IS ANOTHER EXAMPLE THAT WENT VERY INTERESTING:
+/*Always check the data structure first!
+
+This is like... 50% of debugging in real web development:
+
+"Why isn't this working?"
+checks what the data actually looks like
+"Oh, it's an object not a string" / "Oh, it's nested differently" / "Oh, the property name is different"*/
+//!!!PRO TIP!!! 
+//ALWAYS LOOK FOR THE DATA STRUCTURE FIRST:
+///---------------------------------------------------------------------------------------------
+.then(data => {
+  console.log(data);        // See the whole thing
+  console.log(data[0]);     // See one item
+  console.log(typeof data); // See the type
+})
+//----------------------------------------------------------------------------------------------
+//Calling API to obtain data to create cards and insert them IN authorContainer
+const authorContainer = document.getElementById('author-container');
+const loadMoreBtn = document.getElementById('load-more-btn');
+
+let startingIndex = 0;
+let endingIndex = 8;
+let authorDataArr = [];
+
+fetch('https://cdn.freecodecamp.org/curriculum/news-author-page/authors.json')
+  .then((res) => res.json())
+  .then((data) => {
+    authorDataArr = data
+    console.log(data);   
+  })
+  .catch((err) => {
+    console.error(`There was an error: ${err}`);
+  });
+
+function displayAuthors(authors) {
+  authorContainer.innerHTML = authors.map((author, index) => 
+    `<div id="${index}" class="user-card">
+      <h2 class="author-name">${author.author}</h2>
+    </div>`  //This is where it went TRICKY, bc the example was showing '<h2 class="author-name">${author}</h2>'
+  ).join('');  //Which makes you think author is just a string! But it's actually an object with an .author property. They should have shown:
+}
+
+/*The data structure:
+javascript{
+  author: "Quincy Larson",
+  image: "...",
+  url: "...",
+  bio: "..."
+}
+This is an object with a property called author that contains the name.
+In your code:
+javascriptauthors.map((author, index) => ...)
+
+The parameter name author is just a variable YOU chose - you could've called it person, item, x, anything!
+It represents the whole object from the array
+
+So when you write:
+
+javascript${author.author}
+
+First author = the variable (the whole object)
+.author = accessing the property named "author" inside that object
+
+
+It's like saying:
+javascriptconst author = { author: "Quincy Larson", image: "...", ... };
+console.log(author.author); // "Quincy Larson"
+*/
