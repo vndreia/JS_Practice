@@ -761,7 +761,8 @@ fetch('https://cdn.freecodecamp.org/curriculum/news-author-page/authors.json')
     console.log(data);   
   })
   .catch((err) => {
-    console.error(`There was an error: ${err}`);
+    console.error(`There was an error: ${err}`)
+    authorContainer.innerHTML = `<p class= "error-msg">There was an error loading the authors</p>`; //UI feedback
   });
 
 function displayAuthors(authors) {
@@ -798,3 +799,49 @@ It's like saying:
 javascriptconst author = { author: "Quincy Larson", image: "...", ... };
 console.log(author.author); // "Quincy Larson"
 */
+
+//And then: 
+fetch(url)
+  .then((res) => res.json())  // Parse response → returns parsed data
+  .then((data) => {
+    authorDataArr = data; //save it
+    //array.slice(start, end)
+//1st parameter (start): Where to START cutting (inclusive - this index IS included)
+//2nd parameter (end): Where to STOP cutting (exclusive - this index is NOT included)
+    displayAuthors(authorDataArr.slice(startingIndex, endingIndex)); //use it with the LET variables defining which authors to take and which not
+
+  })
+
+  //NOW this is an interesting way to iterate through the authorDataArr array:
+
+  const displayAuthors = (authors) => {
+  authors.forEach(({ author, image, url, bio }, index) => { //thanks to the += we keep adding more authors instead of replacing thems
+    authorContainer.innerHTML += ` 
+    <div id="${index}" class="user-card">
+      <h2 class="author-name">${author}</h2>
+      <img class="user-img" src="${image}" alt="${author} avatar" />
+      <p class="bio">${bio.length > 50 ? bio.slice(0, 50) + '...' : bio}</p> 
+      <a class="author-link" href="${url}" target="_blank">${author}'s author page</a>
+    </div>
+  `;
+  });
+}
+//--------------------------------------------------
+//In the above code, we use destructuring in the forEach parameter to directly extract properties from each author object.
+//This way, inside the loop, we can use author, image, url, and bio directly without needing to prefix them with author.
+//Also, we use innerHTML += to append each author's card to the container instead of replacing it each time.
+//<p class="bio">${bio.length > 50 ? bio.slice(0, 50) + '...' : bio}</p>  
+// SHOW ONLY First 50 characters + "..." if bio is too long, else show full bio
+
+//Now lets say we want to load more authors when clicking the button:
+const fetchMoreAuthors = () => { 
+  startingIndex += 8; //startinIndex = 0 + 8 = 8
+  endingIndex += 8; //endingIndex = 8 + 8 = 16
+//We call for displayAuthors again with the new indexes to get the next 8 authorss
+  displayAuthors(authorDataArr.slice(startingIndex, endingIndex)); //reusing the displayAuthors function to iterate over the next 8 authors
+  loadMoreBtn.disabled = true && loadMoreBtn.textContent = "No more data to load"; //disable the button when there are no more authors to load
+};
+
+//And we add the listener to the button:
+loadMoreBtn.addEventListener("click", fetchMoreAuthors); 
+
