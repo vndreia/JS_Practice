@@ -286,3 +286,29 @@ String.prototype.isUpperCase = function () {
 /*But toUpperCase() returns a new primitive string, not a String object
 So you're comparing: String object == primitive string
 The == operator converts the String object to primitive for comparison*/
+
+//A function to get the average and determined score of a student:
+function getGrade(s1, s2, s3) {
+  const average = (s1 + s2 + s3) / 3;
+
+  switch (
+    true //I tried to pass average initially, but it didn't work bc JS takes literally the static value of average and it never matches any case, therefore it's never "true"
+  ) {
+    //When I pass True instead, it checks each case until it finds one that is true
+    case average >= 90:
+      return "A";
+    case average >= 80:
+      return "B";
+    case average >= 70:
+      return "C";
+    case average >= 60:
+      return "D";
+    default:
+      return "F";
+  }
+}
+//Another great solution:
+function getGrade(s1, s2, s3) {
+  var s = (s1 + s2 + s3) / 3;
+  return s >= 90 ? "A" : s >= 80 ? "B" : s >= 70 ? "C" : s >= 60 ? "D" : "F";
+}
