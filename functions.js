@@ -312,3 +312,25 @@ function getGrade(s1, s2, s3) {
   var s = (s1 + s2 + s3) / 3;
   return s >= 90 ? "A" : s >= 80 ? "B" : s >= 70 ? "C" : s >= 60 ? "D" : "F";
 }
+
+//--------------------------------------------------------------
+//A function hat takes a more than 5 char string and reverses it, if its >= to 5:
+//THIS ONE IS WRONG THO, BECAUSE:
+//1.- split("") splits every character, not every word
+//2.- Arrays don't have a .reverse() method you can call directly on strings
+//MAP always need a function
+//Reverse only works on arrays, so you need to split the word into an array of characters first
+function spinWords(string) {
+  return string.split("").map(word.length >= 5 ? word.reverse() : word);
+}
+
+//THE RIGHT WAY:
+function spinWords(string) {
+  return string
+    .split(" ")
+    .map((word) =>
+      word.length >= 5 ? word.split("").reverse().join(" ") : word
+    )
+    .join(" "); //This join is to join the words back into a single string or phrase
+  //that because i splitted them first
+}

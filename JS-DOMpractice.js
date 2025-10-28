@@ -428,3 +428,179 @@ function getPosts() {
 
 getPosts();
 
+//---------------------------------------------------------------
+//An example of a shopping cart with classes:
+
+//A shopping cart does not serve much purpose without products. 
+// Declare a products variable and set it to an empty array. Using an array will allow you to store multiple products.
+const products = []; 
+const cartContainer = document.getElementById("cart-container");
+const productsContainer = document.getElementById("products-container");
+const dessertCards = document.getElementById("dessert-card-container");
+const cartBtn = document.getElementById("cart-btn");
+const clearCartBtn = document.getElementById("clear-cart-btn");
+const totalNumberOfItems = document.getElementById("total-items");
+const cartSubTotal = document.getElementById("subtotal");
+const cartTaxes = document.getElementById("taxes");
+const cartTotal = document.getElementById("total");
+const showHideCartSpan = document.getElementById("show-hide-cart");
+let isCartShowing = false;
+/*You now need to start adding products. 
+Before you do that, you need to consider the structure of your product data. 
+A product will need a unique identifier to distinguish it from other products, a price so people know how much it costs,
+ and a name so people know what they are buying. You should also add a category to each product. */
+//The array of objects that contain the products for sale:
+const products = [
+  {
+    id: 1,
+    name: "Vanilla Cupcakes (6 Pack)",
+    price: 12.99,
+    category: "Cupcake",
+  },
+  {
+    id: 2,
+    name: "French Macaron",
+    price: 3.99,
+    category: "Macaron",
+  },
+  {
+    id: 3,
+    name: "Pumpkin Cupcake",
+    price: 3.99,
+    category: "Cupcake",
+  },
+  {
+    id: 4,
+    name: "Chocolate Cupcake",
+    price: 5.99,
+    category: "Cupcake",
+  },
+  {
+    id: 5,
+    name: "Chocolate Pretzels (4 Pack)",
+    price: 10.99,
+    category: "Pretzel",
+  },
+  {
+    id: 6,
+    name: "Strawberry Ice Cream",
+    price: 2.99,
+    category: "Ice Cream",
+  },
+  {
+    id: 7,
+    name: "Chocolate Macarons (4 Pack)",
+    price: 9.99,
+    category: "Macaron",
+  },
+  {
+    id: 8,
+    name: "Strawberry Pretzel",
+    price: 4.99,
+    category: "Pretzel",
+  },
+  {
+    id: 9,
+    name: "Butter Pecan Ice Cream",
+    price: 2.99,
+    category: "Ice Cream",
+  },
+  {
+    id: 10,
+    name: "Rocky Road Ice Cream",
+    price: 2.99,
+    category: "Ice Cream",
+  },
+  {
+    id: 11,
+    name: "Vanilla Macarons (5 Pack)",
+    price: 11.99,
+    category: "Macaron",
+  },
+  {
+    id: 12,
+    name: "Lemon Cupcakes (4 Pack)",
+    price: 12.99,
+    category: "Cupcake",
+  },
+];
+
+
+//Remember that you can use destructuring to extract multiple values from an array or object in a single statement./
+
+products.forEach(
+  ({name, id, price, category}) => {}
+);
+//In your template literal, create a div element with a class of dessert-card. 
+// In that div, create an h2 element and give it the text of the name variable.
+
+products.forEach(
+  ({ name, id, price, category }) => {
+    dessertCards.innerHTML += `
+      <div class="dessert-card">
+        <h2>${name}</h2>
+        <p class="dessert-price">$${price}</p>
+        <p class="product-category">Category: ${category}</p>
+<button id="${id}" class="btn add-to-cart-btn">Add to cart</button>
+      </div>
+    `;
+  }
+);
+
+//In your constructor, use the this keyword to set the items property to an empty array. 
+// Also, set the total property to 0, and the taxRate property to 8.25.
+
+class ShoppingCart {
+  constructor() {
+this.items = [];
+this.total = 0;
+this.taxRate = 8.25;
+  }
+};
+
+/*The first parameter, id, is the id of the product the user has added to their cart. The second parameter, products, is an array of product objects. By using a parameter instead of directly referencing your existing products array, 
+this method will be more flexible if you wanted to add additional product lists in the future. */
+class ShoppingCart {
+  constructor() {
+    this.items = [];
+    this.total = 0;
+    this.taxRate = 8.25;
+  }
+/*You need to find the product that the user is adding to the cart.
+ Remember that arrays have a .find() method. In your addItem function, declare a product variable, 
+ and assign it the value of calling the .find() method on the products array.
+For the callback to .find(), pass a function that takes a single parameter item, 
+and returns whether the id property of item is strictly equal to the id parameter passed to addItem. */
+
+//I DON'T REALLY NEED TO USE AN IF STATEMENT HERE, BC THE .FIND() METHOD ALREADY has the condition!!!!!!
+//Now you need to push the product into the cart's items array. Remember to use the this keyword.
+  addItem(id, products) {
+    const product = products.find((item) => item.id === id);
+    // For each product, it checks if that product's id property matches the id you're looking for
+    const { name, price } = product;
+this.items.push(product); //adds the product at the end of the items array created in the constructor
+  }
+
+//The arrow function (item) => item.id === id IS the condition!!!!!!!
+   const totalCountPerProduct = {};
+    this.items.forEach((dessert) => {
+      //For each dessert, you're checking if that dessert's ID already has a count in totalCountPerProduct
+//If it does, keep that count
+//If it doesn't (first time seeing this dessert), initialize it to 0
+//This is perfect for when you want to count how many times each product appears in the cart.
+      totalCountPerProduct[dessert.id] = (totalCountPerProduct[dessert.id] || 0) + 1;
+    }) //After looping it adds one to the count of that dessert ID
+    const currentProductCount = totalCountPerProduct[product.id]; //This saves whatever property of the product ID is in totalCountPerProduct
+    //It has keys bc it's dynamic 
+
+};
+
+//A TINY EXPLANATION OF THE ABOVE CODE:
+const product = products.find((item) => item.id === id);
+// product is now: { id: 3, name: "Pumpkin Cupcake", price: 3.99, category: "Cupcake" }
+
+const { name, price } = product;
+// This creates TWO separate variables:
+// name = "Pumpkin Cupcake"
+// price = 3.99
+
