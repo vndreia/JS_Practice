@@ -579,7 +579,6 @@ and returns whether the id property of item is strictly equal to the id paramete
     // For each product, it checks if that product's id property matches the id you're looking for
     const { name, price } = product;
 this.items.push(product); //adds the product at the end of the items array created in the constructor
-  }
 
 //The arrow function (item) => item.id === id IS the condition!!!!!!!
    const totalCountPerProduct = {};
@@ -592,9 +591,34 @@ this.items.push(product); //adds the product at the end of the items array creat
     }) //After looping it adds one to the count of that dessert ID
     const currentProductCount = totalCountPerProduct[product.id]; //This saves whatever property of the product ID is in totalCountPerProduct
     //It has keys bc it's dynamic 
+//If currentProductCount > 1 → The product was already in the cart before you added it just now (so you have 2, 3, 4, etc.)
+//If currentProductCount === 1 → This is the first time adding this product to the cart
+    currentProductCount > 1 
+      ? currentProductCountSpan.textContent = `${currentProductCount}x`
+      : productsContainer.innerHTML += `<div class="product" id="dessert${id}"></div>`;
+  }
+  //You need a way to access the total number of items in the cart. The best way to do this is to add another method to your ShoppingCart class, rather than accessing the items array directly.
+  getCounts() {
+    return this.items.length;
+  }
+//This is correct to calculate the total price of the items in the cart:
+  calculateTotal() {
+  const subTotal = this.items.reduce((total, item) => {
+    return total + item.price;
+  }, 0);
+  return subTotal;
+//But they wanted the shorter version with no brackets and return keyword:
+calculateTotal() {
+  const subTotal = this.items.reduce((total, item) => total + item.price, 0);
+  return subTotal;
+}
+}
 
-};
-
+  calculateTaxes(amount) {
+return (this.taxRate / 100) * amount;
+  }
+  }
+//---------------------------------------------------------------
 //A TINY EXPLANATION OF THE ABOVE CODE:
 const product = products.find((item) => item.id === id);
 // product is now: { id: 3, name: "Pumpkin Cupcake", price: 3.99, category: "Cupcake" }
@@ -603,4 +627,37 @@ const { name, price } = product;
 // This creates TWO separate variables:
 // name = "Pumpkin Cupcake"
 // price = 3.99
+//---------------------------------------------------------------
+const cart = new ShoppingCart();
+const addToCartBtns = document.getElementsByClassName("add-to-cart-btn"); //getElementsByClassName returns an HTMLCollection, not an array
+//this method is old and outdated, better to use querySelectorAll that returns a NodeList to use forEach directly
+//I wouldn't have had to do this conversion if I used querySelectorAll, but meh...
+//Guess now I now how to use spread operator to convert an HTMLCollection into an array:
+[...addToCartBtns].forEach((btn) => {
+  btn.addEventListener("click", (event) => {
+cart.addItem(Number(event.target.id), products) //The id is a string, so you need to convert it to a number with Number()
+/*Now you can update the total number of items on the webpage. Assign the value of your cart object's .getCounts() method to the textContent of the totalNumberOfItems variable*/
+      totalNumberOfItems.textContent = cart.getCounts();
+
+  });
+});
+
+/*Start by inverting the value of isCartShowing. Remember that you can use the logical not operator ! to invert the value of a boolean. 
+Assign the inverted value to isCartShowing.*/
+//THE WRONG VERSION WITH A HARDCODED VALUE:
+cartBtn.addEventListener("click", () => {
+isCartShowing.value = !false; //tHIS IS technically correct, but not dynamic at all since its sets the isCartShowing to true ALWAYS!
+});
+
+//THE RIGHT VERSION:
+//And this is how you make a beautiful toggle:
+cartBtn.addEventListener("click", () => {
+isCartShowing = !isCartShowing; //This way it toggles between true and false dynamically
+/*Two common patterns:
+Regular variable (primitive boolean):
+javascriptlet isCartShowing = false;
+isCartShowing = !isCartShowing; // No .value needed*/ 
+  showHideCartSpan.textContent = isCartShowing ? "Hide" : "Show";
+  cartContainer.style.display = isCartShowing ? "block" : "none";
+});
 

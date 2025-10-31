@@ -329,7 +329,7 @@ function spinWords(string) {
   return string
     .split(" ")
     .map((word) =>
-      word.length >= 5 ? word.split("").reverse().join(" ") : word
+      word.length >= 5 ? word.split("").reverse().join("") : word
     )
     .join(" "); //This join is to join the words back into a single string or phrase
   //that because i splitted them first
