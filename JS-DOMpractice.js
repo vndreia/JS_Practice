@@ -601,23 +601,65 @@ this.items.push(product); //adds the product at the end of the items array creat
   getCounts() {
     return this.items.length;
   }
-//This is correct to calculate the total price of the items in the cart:
+/*This is correct to calculate the total price of the items in the cart:
   calculateTotal() {
   const subTotal = this.items.reduce((total, item) => {
     return total + item.price;
   }, 0);
-  return subTotal;
+  return subTotal;*/
+  
 //But they wanted the shorter version with no brackets and return keyword:
 calculateTotal() {
   const subTotal = this.items.reduce((total, item) => total + item.price, 0);
   return subTotal;
-}
+      const tax = this.calculateTaxes(subTotal);
+      this.total = subTotal + tax;
+      //Now you need to update the DOM elements that show the subtotal, taxes, and total
+      //This is where we update the DOM with toFixed BC we need strings to show in the webpage
+          cartSubTotal.textContent = `$${subTotal.toFixed(2)}`;
+          cartTaxes.textContent = `$${tax.toFixed(2)}`;
+    cartTotal.textContent = `$${this.total.toFixed(2)}`;
+return this.total;
 }
 
+clearCart() {
+  //0 IS FALSY, LIKE MY 
+  //// When cart is EMPTY (length = 0):
+      const isCartCleared = confirm("Are you sure you want to clear all items from your shopping cart?"); //displays a notification asking for confirmation
+       if (isCartCleared) { //this methohd already has boolean value
+        // If user clicks "OK": result = true
+// If user clicks "Cancel": result = false
+    this.items = [];
+    this.total = 0;
+    productsContainer.innerHTML = "";
+      totalNumberOfItems.textContent = 0;
+      cartSubTotal.textContent = 0;
+      cartTaxes.textContent = 0;
+      cartTotal.textContent = 0;
+
+  }
+  if (!this.items.length) { //// !0 = true
+    alert("Your shopping cart is already empty"); //so this RUNS
+    return;
+  }
+}
+
+/*Calculate taxes method:
   calculateTaxes(amount) {
 return (this.taxRate / 100) * amount;
   }
+
+//THE UPDATED VERSION OF calculateTaxes():
+  calculateTaxes(amount) {
+    return ((this.taxRate / 100) * amount).toFixed(2); //This is bc decimals throw weird stuff in JS, so we round it to 2 decimals with toFixed()
+    //We WRAP the whole taxRate operations to treat it as a single result before applying toFixed()
   }
+*/
+  //but now we have a string, not a number. So we need to convert it back to a number:
+   calculateTaxes(amount) {
+    return parseFloat(((this.taxRate / 100) * amount).toFixed(2)); //ParseFloat converts the string back to a number
+  }
+}
 //---------------------------------------------------------------
 //A TINY EXPLANATION OF THE ABOVE CODE:
 const product = products.find((item) => item.id === id);
@@ -661,3 +703,6 @@ isCartShowing = !isCartShowing; // No .value needed*/
   cartContainer.style.display = isCartShowing ? "block" : "none";
 });
 
+//USING BIND 4 THE FIRST TIME HERE:
+clearCartBtn.addEventListener("click", cart.clearCart.bind(cart));
+//This method is needed to bind the context of 'this' inside clearCart method to the cart instance instead of the button that triggers the event
