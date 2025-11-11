@@ -105,3 +105,79 @@ ReactDOM.render((
     {list.map(...)}
   </ul>
 ), document.querySelector('#root'));
+
+//EVENTOS SINTÉTICOS
+
+function handleKeyUp(e) {
+  document.getElementById('title').innerText = e.target.value;
+}
+
+//La estructura real:
+<input onKeyUp={handleKeyUp} type="text" />
+//     ↑       ↑
+//     |       └─ Esta es la función (el event listener)
+//     └───────── Este es el atributo donde lo pones
+```
+//En español sería algo así como:
+//"Cuando ocurra [onKeyUp], ejecuta [handleKeyUp]"
+//-----------------------------------------------------------
+
+
+//COMPONENTS:
+
+// This is the DEFINITION (the recipe)
+
+function User(props) {
+  return (
+    <div>
+      <img src={`.../${props.id}.png`} />
+      <p>{props.name}</p>
+    </div>
+  );
+}
+
+// This is USING the component (making the dish from the recipe)
+ReactDOM.render((
+  <>
+    <h2>Mis amigos imaginarios:</h2>
+    <User id="1" name="Gregory" />  // ← Creating an INSTANCE of User
+    <User id="2" name="James" />     // ← Another INSTANCE
+    <User id="3" name="Allison" />   // ← Another INSTANCE
+  </>
+), document.querySelector('#root'));
+
+
+//-----------------------------------------------------------
+//Props behind the scenes, example:
+<CustomButton title="¡Haz clic sobre mí!" onClick={handleClick} />
+//What React actually does behind the scenes:
+// Step 1: React creates a props object from your attributes
+const propsObject = {
+  title: "¡Haz clic sobre mí!",
+  onClick: handleClick,
+};
+
+// Step 2: React CALLS your component function with that object
+const jsxToInsert = CustomButton(propsObject);
+
+// Step 3: React takes the returned JSX and puts it in the DOM
+
+
+//-----------------------------------------------------------//Another example of a component:
+// Step 1: You define the Giraffe function (the blueprint)
+function Giraffe() {
+  return <div>...</div>;
+}
+
+// Step 2: ReactDOM.render takes JSX and puts it in the actual HTML DOM
+ReactDOM.render((
+  <>
+    <h2>África</h2>
+    <Giraffe />  // ← React calls Giraffe() behind the scenes
+  </>
+), document.querySelector('#root'));  // ← Find the HTML element with id="root"
+
+// These do the same thing:
+<Giraffe />
+// vs
+React.createElement(Giraffe)
