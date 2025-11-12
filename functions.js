@@ -334,3 +334,26 @@ function spinWords(string) {
     .join(" "); //This join is to join the words back into a single string or phrase
   //that because i splitted them first
 }
+
+//-----------------------------------------------------------
+//WHAT IS A PURE FUNCTION?
+/*So this means a pure function always throws a predictable result, because it will always do the same. 
+ But in some cases a function output can change depending on what it does or if the variable changes or is a dynamic content*/
+
+//Example of a pure function:
+function getXPosition(time, speed) {
+  return time * speed;
+}
+//(It is a lot like a math or physics formula, it will always return the same result for the same inputs)
+
+//What a not pure function looks like:
+//Like using external data that can change:
+let userScore = 100;
+
+function calculateBonus(multiplier) {
+  return userScore * multiplier; // ← Depends on userScore!
+}
+
+calculateBonus(2); // Returns 200
+userScore = 50;
+calculateBonus(2); // Returns 100 (same input, different output!)
