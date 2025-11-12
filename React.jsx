@@ -181,3 +181,84 @@ ReactDOM.render((
 <Giraffe />
 // vs
 React.createElement(Giraffe)
+
+
+//  -----------------------------------------------------------
+//When PROPS IS literally anything:
+/*
+  Cambia estos tres componentes similares a un solo componente ‘Animal’ con props.
+ */
+function Animal(props) {
+  return (
+  <div className = "animal">
+    <div className = "icon">{props.icon}</div>
+    <div className = "info">
+      <h3>{props.name}</h3>
+      <span>Height: {props.height}</span>
+    </div>
+  </div>
+    );
+}
+
+
+ReactDOM.render((
+  <>
+    <h2>África</h2>
+<Animal icon = "🦒" name= "Jirafa" height= "5.2 metros"/>
+    <Animal icon= "🦔" name= "Erizo" height ="15.2 centímetros"/> 
+    <Animal icon = "🦨" name= "Zorrillo" height= "Demasiado maloliente para medirlo"/>
+  </>
+), document.querySelector('#root'));
+
+
+//-----------------------------------------------------------
+//And this version with DESTRUCTURING:
+function Animal ({icon, name, height}) {
+  return (<div className = "animal">
+<div className = "icon">{icon}<div/>
+<div className = "info">{info}
+  <h3>{name}</h3>
+  <span>{height}</span>
+</div>
+  </div>>);
+}
+
+//---------------
+//Adding a new example:
+function Animal(props) {
+      // obtener la hora actual en horas
+      const hours = new Date().getHours();
+      // comprueba si es de noche
+      const isNight = hours > 19 || hours < 6;
+      // dependiendo de la hora del día, los diferentes animales deben estar dormidos o despiertos
+  //tomando como la noche a partir de las 7 pm y el día a partir de las 6 am
+      const isSleeping = (isNight && !isNocturnal) || (!isNight && isNocturnal);
+    const isNocturnal = props.name = "Erizo" || props.name ="Zorrillo";  //THIS IS WRONG bc I am using this variable before defining it
+//AND Is wrong because I am using assignment operator (=) instead of comparison operator (===)
+
+// ❌ INCORRECTO - esto ASIGNA valores, no compara
+const isNocturnal = props.name = "Erizo" || props.name = "Zorrillo";
+
+// ✅ CORRECTO - esto COMPARA valores
+const isNocturnal = props.name === "Erizo" || props.name === "Zorrillo";
+ 
+return (
+        <div className="animal">
+          <div className="icon">{isSleeping ? "💤" : props.icon}</div>
+          <div className="info">
+            <h3>{props.name}</h3>
+            <span>Altura: {props.height}</span>
+          </div>
+        </div>
+      );
+    }
+
+
+    ReactDOM.render((
+      <>
+        <h2>Africa</h2>
+        <Animal icon="🦒" name="Jirafa" height="5.2 metros" />
+        <Animal icon="🦔" name="Erizo" height="15.2 centímetros" />
+        <Animal icon="🦨" name="Zorrillo" height="Demasiado maloliente para medirlo" />
+      </>
+    ), document.querySelector('#root'));
