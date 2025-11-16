@@ -262,3 +262,57 @@ return (
         <Animal icon="🦨" name="Zorrillo" height="Demasiado maloliente para medirlo" />
       </>
     ), document.querySelector('#root'));
+
+    //-----------------------------------------------------------
+    //FUNCTIONAL COMPONENTS VS CLASS COMPONENTS
+
+    //Class components were used before React Hooks were introduced.
+    //Class component example:
+    
+    class User extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { rating: 0 }; // ← Set up state in constructor
+  }
+  
+  handleLike = () => {
+    this.setState({ rating: 1 }); // ← Update state with this.setState
+  };
+  
+  render() { // ← Need a render() method
+    return <div>{this.props.name}</div>; // ← Access props with this.props
+  }
+}
+//Lots of boilerplate: constructor, super(props), this everywhere, render() method
+
+
+//Functional component with Hooks:
+function User({ id, name }) { // ← Props come as function parameters
+  const [rating, setRating] = useState(0); // ← State with useState hook
+  
+  const handleLike = () => {
+    setRating(1); // ← Update state directly
+  };
+  
+  return <div>{name}</div>; // ← Just return JSX, no render() needed
+}
+//Much cleaner: No this, no constructor, no render() method
+
+//KEY
+//Using key OUTSIDE the component:
+function App() {
+  const [selectedChatId, setSelectedChatId] = useState(10);
+  
+  return (
+    <>
+      <h2>Chats</h2>
+      {chats.map(chat => (
+        <Chat key={chat.id} onClick={() => setSelectedChatId(chat.id)} />
+      ))}
+      
+      <h2>Mensajes</h2>
+      <MessageList key={selectedChatId} />  {/* ← ¡Aquí está la magia! */}
+    </>
+  );
+
+//This is when we want to change a whole chat and reset its state (like scroll position, etc.)
