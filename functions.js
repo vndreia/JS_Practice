@@ -357,3 +357,4 @@ function calculateBonus(multiplier) {
 calculateBonus(2); // Returns 200
 userScore = 50;
 calculateBonus(2); // Returns 100 (same input, different output!)
+

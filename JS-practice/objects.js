@@ -1283,3 +1283,93 @@ calculateArea() {
 }
 }
 //El método calculateArea() aparecerá en Rectangle.prototype
+
+//--------------------------------------------------------------------------------------------------------  
+//THIS IS SUPER IMPORTANT TO REMEMBER:
+//DOT NOTATION is for literal properties
+//BRACKET NOTATION is for dynamic properties
+//EXAMPLE:
+
+const conversionTable = {
+  cup: { gram: 240, ounce: 8.0, teaspoon: 48 },
+  gram: { cup: 1 / 240, ounce: 0.0353, teaspoon: 0.2 },
+  ounce: { cup: 0.125, gram: 28.35, teaspoon: 6 },
+  teaspoon: { cup: 1 / 48, gram: 5, ounce: 0.167 },
+}
+
+const convertQuantity = (fromUnit) => (toUnit) => (quantity) => {
+  conversionTable[fromUnit][toUnit] //Access the dynamic bigger to smaller units. Going conversionTable --> cup --> gram * quantity
+}
+
+const convertQuantity = (fromUnit) => (toUnit) => (quantity) => {
+  return conversionTable[fromUnit][toUnit] * [quantity];
+}
+
+//Calling the function: 
+const gramsResult = convertQuantity("cup")("gram")(2);
+console.log(gramsResult);
+
+
+//here is where currying although inefficient, seems cool when used to convert units:
+// Create reusable converters
+const cupsToGrams = convertQuantity("cup")("gram");
+const cupsToOunces = convertQuantity("cup")("ounce");
+
+// Now use them multiple times
+const flour = cupsToGrams(2);      // 480
+const sugar = cupsToGrams(1.5);    // 360
+const milk = cupsToOunces(1);      // 8
+
+
+//When Currying is Inefficient (like adjustForServings):
+// Current curried version
+const adjustForServings = (baseQuantity) => (newServings) =>
+  (baseQuantity / 1) * newServings;
+
+// You'd use it like:
+const adjusted = adjustForServings(2)(4); // 8
+//THIS IS CLEANER:
+// vs. Normal function - MUCH clearer:
+const adjustForServings = (baseQuantity, newServings) => 
+  baseQuantity * newServings;
+
+// Usage:
+const adjusted = adjustForServings(2, 4); // 8
+
+const processIngredient = (baseQuantity, baseUnit, newUnit, newServings) => {
+    const scaled = adjustForServings(baseQuantity, newServings);
+  const result = convertQuantity(baseUnit)(newUnit)(scaled);
+  return result.toFixed(2);
+}
+
+//Selected DOM elements
+const ingredientName = document.querySelector("#ingredient");
+const ingredientQuantity = document.querySelector("#quantity");
+const unitToConvert = document.querySelector("#unit");
+const numberOfServings = document.querySelector("#servings");
+const resultList = document.querySelector("#result-list");
+const recipeForm = document.querySelector("#recipe-form");
+//Now You'll need a function that actually updates the DOM. Declare an updateResultsList function.
+//To start, the function should clear the HTML from the resultList element.
+
+//SO Now this is technically wrong, bc I declared the variable resultList in the global scope
+function updateResultsList(resultList){
+  resultList.innerHTML = "";
+}
+//But passing it as a parameter makes it redundant, bc the parameter would be another compltely different of variable that is not exactly resultList with the selector
+///Like this: 
+const resultList = document.getElementById("result-list"); // The real DOM element
+
+function updateResultsList(resultList) { 
+  console.log(resultList); // This logs whatever you PASS IN, not the global
+}
+
+updateResultsList("banana"); // Logs "banana"
+updateResultsList(42);       // Logs 42
+updateResultsList(resultList); // Logs the DOM element (because you passed it)
+
+//The parameter is a completely separate variable that only exists inside the function. It's like having two people named "John" in different rooms - same name, different people.
+//So the right way is:
+function updateResultsList(){ //No parameter (inside variable needed)
+  resultList.innerHTML = "";
+}
