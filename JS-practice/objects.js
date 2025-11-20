@@ -1350,7 +1350,9 @@ const numberOfServings = document.querySelector("#servings");
 const resultList = document.querySelector("#result-list");
 const recipeForm = document.querySelector("#recipe-form");
 //Now You'll need a function that actually updates the DOM. Declare an updateResultsList function.
-//To start, the function should clear the HTML from the resultList element.
+//To start, the function should clear the HTML from the resultList element.}const units = ["cup", "gram", "ounce", "teaspoon"];
+const units = ["cup", "gram", "ounce", "teaspoon"];
+
 
 //SO Now this is technically wrong, bc I declared the variable resultList in the global scope
 function updateResultsList(resultList){
@@ -1373,3 +1375,93 @@ updateResultsList(resultList); // Logs the DOM element (because you passed it)
 function updateResultsList(){ //No parameter (inside variable needed)
   resultList.innerHTML = "";
 }
+
+const updateResultsList = () => {
+  resultList.innerHTML = "";
+  units.forEach((unit => {
+   if  (unit !== unitToConvert.value ) {
+       const convertedValue = convertQuantity(unitToConvert.value)(unit)(ingredientQuantity.value);
+   }
+  }
+  ))};
+
+//BEST I coul do:
+const updateResultsList = () => {
+  const resultList = document.getElementById("result-list");
+  const ingredientName = document.getElementById("ingredient").value;
+  const ingredientQuantity = document.getElementById("quantity").value;
+  const unitToConvert = document.getElementById("unit").value;
+
+  resultList.innerHTML = "";
+
+  units.forEach(unit => {
+    if (unit !== unitToConvert) {
+      const convertedValue =
+        convertQuantity(unitToConvert)(unit)(ingredientQuantity);
+
+      const li = document.createElement("li");
+      li.innerText = `${ingredientName.toLowerCase()}: ${convertedValue} ${unit}`;
+      resultList.appendChild(li);
+    }
+  });
+};
+
+//CURRYING IS AWFUL. Might throw unexpected results
+//BUT IT WORKS IF YOU WANT PARTIAL APPLICATION:
+// Your curried function
+const convertQuantity = (fromUnit) => (toUnit) => (quantity) => {
+  const conversionRate = conversionTable[fromUnit][toUnit];
+  return quantity * conversionRate;
+}
+
+// Partial application - lock in "cup" as fromUnit
+const convertFromCups = convertQuantity("cup");
+
+// Now you can reuse this for multiple conversions FROM cups
+const cupsToGrams = convertFromCups("gram");
+const cupsToOunces = convertFromCups("ounce");
+
+// Use them easily
+console.log(cupsToGrams(2));   // Convert 2 cups to grams
+console.log(cupsToGrams(5));   // Convert 5 cups to grams
+console.log(cupsToOunces(3));  // Convert 3 cups to ounces
+
+//You DON'T have to stop early - you can pass all the arguments if you want:
+// Full application - pass all 3 arguments
+convertQuantity("cup")("gram")(2)  // Returns 480
+//BUT you CAN stop early - that's the whole power of currying! Each function call returns another function:
+// Stop after 1 argument - returns a FUNCTION
+const convertFromCups = convertQuantity("cup");
+// convertFromCups is now: (toUnit) => (quantity) => { ... }
+
+// Stop after 2 arguments - returns a FUNCTION  
+const cupsToGrams = convertQuantity("cup")("gram");
+// cupsToGrams is now: (quantity) => { ... }
+
+// Or go all the way - returns a VALUE
+const result = convertQuantity("cup")("gram")(2);
+// result is now: 480
+//Here's what's happening:
+convertQuantity("cup")          // Returns: (toUnit) => (quantity) => {...}
+convertQuantity("cup")("gram")  // Returns: (quantity) => {...}
+convertQuantity("cup")("gram")(2) // Returns: 480 (actual number)
+
+//FUNCTION PIPELINE BEAUTIFUL EXAMPLE:
+// Three simple functions
+const addTax = (price) => price * 1.10;        // Add 10% tax
+const addShipping = (price) => price + 5;       // Add $5 shipping
+const roundPrice = (price) => Math.round(price); // Round to nearest dollar
+
+// Manual pipeline (messy)
+const total1 = roundPrice(addShipping(addTax(100)));
+console.log(total1); // 100 → 110 → 115 → 115
+
+// Better: Create a pipeline function
+const calculateTotal = (price) => {
+  const withTax = addTax(price);
+  const withShipping = addShipping(withTax);
+  const rounded = roundPrice(withShipping);
+  return rounded;
+};
+
+console.log(calculateTotal(100)); // Same result, more readable!
