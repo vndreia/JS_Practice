@@ -298,6 +298,96 @@ function User({ id, name }) { // ← Props come as function parameters
 }
 //Much cleaner: No this, no constructor, no render() method
 
+//Another components vs class example
+class Switch extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isActive: false,
+    };
+  }
+
+  handleClick = () => {
+    this.setState({ isActive: !this.state.isActive });
+  };
+
+  render() {
+    // estamos utilizando expresiones de JavaScript para crear nuestras clases de CSS
+    const className = `switch ${this.props.color} ${this.state.isActive ? 'on' : 'off'}`;
+
+    return (
+      <div className={className}>
+        <button className="img" onClick={this.handleClick} />
+        <h3>{this.props.title}</h3>
+      </div>
+    );
+  }
+}
+
+ReactDOM.render((
+  <Switch title="Happy" color="blue" isActive={false} />
+), document.querySelector('#root'));
+
+//FUNCTIONAL VERSION:
+class Switch extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isActive: false,
+    };
+  }
+
+  handleClick = () => {
+    this.setState({ isActive: !this.state.isActive });
+  };
+
+  render() {
+    // estamos utilizando expresiones de JavaScript para crear nuestras clases de CSS
+    const className = `switch ${this.props.color} ${this.state.isActive ? 'on' : 'off'}`;
+
+    return (
+      <div className={className}>
+        <button className="img" onClick={this.handleClick} />
+        <h3>{this.props.title}</h3>
+      </div>
+    );
+  }
+}
+
+ReactDOM.render((
+  <Switch title="Happy" color="blue" isActive={false} />
+), document.querySelector('#root'));
+
+//corrected version:
+
+function Switch(props) {
+  const [isActive, setIsActive] = React.useState(false);
+
+  function handleClick() {
+    setIsActive(!isActive);
+  }
+
+  // estamos utilizando expresiones de JavaScript para crear nuestras clases de CSS
+  const className = `switch ${props.color} ${isActive ? 'on' : 'off'}`;
+
+  return (
+    <div className={className}>
+      <button className="img" onClick={handleClick} />
+      <h3>{props.title}</h3>
+    </div>
+  );
+}
+
+ReactDOM.render((
+  <Switch title="Happy" color="blue" isActive={false} />
+), document.querySelector('#root'));
+
+
+
+
+
 //KEY
 //Using key OUTSIDE the component:
 function App() {
