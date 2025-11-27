@@ -384,6 +384,8 @@ ReactDOM.render((
   <Switch title="Happy" color="blue" isActive={false} />
 ), document.querySelector('#root'));
 
+//-----------------------------------------------------------
+
 
 
 
@@ -406,3 +408,34 @@ function App() {
   );
 
 //This is when we want to change a whole chat and reset its state (like scroll position, etc.)
+
+//AN EXAMPLE I LOVED: 
+
+
+function GoodDeeds() {
+	  const [deeds, setDeeds] = React.useState([]);
+	
+  function handleAddTask(e) {
+	    const input = e.target.previousSibling;
+	 setDeeds([...deeds, input.value ]);
+input.value = '';
+	  
+	  }
+	
+	  return (
+	    <>
+	      <h3>Mis buenas acciones</h3>
+	      <input type="text" />
+	      <button onClick={handleAddTask}>+</button>
+	      <ul>
+	        {deeds.map((deed, i) => (
+	          <li key={i}>{deed}</li>
+	        ))}
+	      </ul>
+	    </>
+	  );
+	}
+	
+	ReactDOM.render((
+	  <GoodDeeds />
+	), document.querySelector('#root'));
