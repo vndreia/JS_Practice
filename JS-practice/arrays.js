@@ -788,3 +788,28 @@ const messageList = [
     text: "¡La respuesta!"
   }
 ];
+
+
+//A function that renders 20 random bubbles:
+
+function Bubbles() {
+  return Array.from(Array(20), (_, i) => (
+    <RandomBubble key={i} />
+  ));
+}
+//Array.from creates a new array from an iterable object. In this case, it creates an array of 20 undefined elements.
+//(_, i) => ... is an arrow function that takes two arguments: the first argument is ignored (represented by _), and the second argument i represents the index of the current element in the array.
+//if we only did (i) the first argument would be the current element, which is undefined in this case since we are just creating an array of a certain length.
+
+/*The key thing to remember:
+
+Array(20) = creates 20 empty slots (weird behavior specific to the Array constructor)
+[undefined, undefined, ...] = creates an array with actual undefined values (more predictable)
+.map() won't iterate over empty slots, but Array.from() will
+That's why Array.from(Array(20), ...) is a common pattern — it forces iteration over all 20 positions.
+In modern JavaScript, you might also see:*/
+
+javascriptArray.from({ length: 20 }, (_, i) => (
+    <RandomBubble key={i} />
+))
+//Which is clearer because you're explicitly saying "I want an object with a length of 20", rather than relying on that weird Array(20) behavior.

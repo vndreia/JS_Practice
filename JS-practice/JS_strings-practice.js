@@ -21,23 +21,23 @@ console.log(strLengthIntro);
 console.log(subject.length);
 
 console.log(
-  `Here is an example of using the length property on the word ${topic}.`
+  `Here is an example of using the length property on the word ${topic}.`,
 );
 console.log(topic.length);
 
 console.log(
-  `Here is an example of accessing the first letter in the word ${subject}.`
+  `Here is an example of accessing the first letter in the word ${subject}.`,
 );
 
 console.log(subject[0]);
 
 console.log(
-  `Here is an example of accessing the second letter in the word ${subject}.`
+  `Here is an example of accessing the second letter in the word ${subject}.`,
 );
 console.log(subject[1]);
 
 console.log(
-  `Here is an example of accessing the last letter in the word ${subject}.`
+  `Here is an example of accessing the last letter in the word ${subject}.`,
 );
 
 const lastCharacter = subject[subject.length - 1];
@@ -164,3 +164,56 @@ function DNAtoRNA(dna) {
   return dna.split("T").join("U");
 }
 //this is like saying cut the string when you find a T with split, and then replace it with a U with JOIN
+
+//AN interesting combination of methods:
+function capitalize(str) {
+  return str
+    .split(" ")
+    .map((word) => word[0].toUpperCase() + word.slice(1))
+    .join(" ");
+  console.log(str); //this will never run because is after the return
+}
+console.log(capitalize("hello daddy hello mom i am cherry bomb")); //This will run
+
+capitalize("Bob Marley poet and a prophet"); // Bob Marley Poet And A Prophet
+capitalize("Bob Marley taught me how to off it"); // Bob Marley Taught Me How To Off It
+capitalize("Bob Marley walkin' like he talk it"); // Bob Marley Walkin' Like He Talk It
+
+//because split turn the str into an array of words, map took each word but only took the first index of each word, whic is 0, and returns only the first letter of each word uppercase, and slice returns the world again (as a copy), but only cutting until de index of the number 1 letter (which is 1, not cero), and we join the worls together to make them a string again
+
+//Another example with a counter of vowels:
+const vowels = ["a", "e", "i", "o", "u"];
+
+function findVowels(str) {
+  let count = 0;
+  str
+    .toLowerCase()
+    .split("")
+    .forEach((char) => {
+      if (vowels.includes(char)) {
+        count++;
+      }
+    });
+  return count;
+}
+
+console.log(findVowels("Hello World")); // Output: 3
+
+/*How we know if it's a vowel:
+ (vowels.includes(char)) {
+This line checks: "Is char inside the vowels array?"
+Remember includes()? It returns true or false. So:
+
+If char is "e" → vowels.includes("e") → true (because "e" is in ['a', 'e', 'i', 'o', 'u'])
+If char is "h" → vowels.includes("h") → false (because "h" is NOT in the vowels array)
+
+So the includes() method is what tells us if it's a vowel or not by checking if it exists in the vowels array!
+Does that clear it up?ohhhh its using the vowels array as a reference to see first if the character is the same.8:58 PMExactly! You've got it!
+The vowels array is like a reference list or checklist. For each character, you're asking: "Is this character on my vowels checklist?"
+So:
+
+char = "h" → Check the vowels list → "h" is NOT on the list → skip it
+char = "e" → Check the vowels list → "e" IS on the list → count it! count++
+char = "l" → Check the vowels list → "l" is NOT on the list → skip it
+char = "l" → Check the vowels list → "l" is NOT on the list → skip it
+char = "o" → Check the vowels list → "o" IS on the list → count it! count++*/
