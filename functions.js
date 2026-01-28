@@ -1,4 +1,4 @@
-//If you just have a single parameter and one single return action in a function, you can write id like:
+//If you just have a single parameter and one single return action in a function, you can write it like:
 
 const addNums = (num1) => num1 + 5; //Arrow simple funct
 console.log(addNums(5, 5));
@@ -329,7 +329,7 @@ function spinWords(string) {
   return string
     .split(" ")
     .map((word) =>
-      word.length >= 5 ? word.split("").reverse().join("") : word
+      word.length >= 5 ? word.split("").reverse().join("") : word,
     )
     .join(" "); //This join is to join the words back into a single string or phrase
   //that because i splitted them first
@@ -357,4 +357,3 @@ function calculateBonus(multiplier) {
 calculateBonus(2); // Returns 200
 userScore = 50;
 calculateBonus(2); // Returns 100 (same input, different output!)
-
