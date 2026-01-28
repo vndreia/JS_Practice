@@ -118,20 +118,8 @@ function handleKeyUp(e) {
 //     |       └─ Esta es la función (el event listener)
 //     └───────── Este es el atributo donde lo pones
 ```
-//En español sería algo así como:
-//"Cuando ocurra [onKeyUp], ejecuta [handleKeyUp]"
-//-----------------------------------------------------------
 
-
-//COMPONENTS:
-
-// This is the DEFINITION (the recipe)
-
-function User(props) {
-  return (
-    <div>
-      <img src={`.../${props.id}.png`} />
-      <p>{props.name}</p>
+      {/*<p>{props.name}</p>
     </div>
   );
 }
@@ -487,6 +475,13 @@ function playSound(fileName) {
   audio.play();
 }
 
+{/*A beautiful example where I use the audio object 4 the first time  */}
+function playSound(fileName) {
+  const audio = new Audio();
+  audio.src = `https://code.s3.yandex.net/web-code/react/${fileName}`;
+  audio.play();
+}
+
 function App() {
   const [isTimeShown, setIsTimeShown] = React.useState();
 
@@ -543,3 +538,103 @@ function Time() {
 ReactDOM.render((
   <App/>
 ), document.querySelector('#root'));
+
+
+//-----------------------------------------------------------
+//example of a component GOD level:
+const { useState } = React;
+
+export const SuperheroForm = () => {
+
+  const powerSourceOptions = [
+    'Bitten by a strange creature',
+    'Radioactive exposure',
+    'Science experiment',
+    'Alien heritage',
+    'Ancient artifact discovery',
+    'Other'
+  ];
+
+  const powersOptions = [
+    'Super Strength',
+    'Super Speed',
+    'Flight',
+    'Invisibility',
+    'Telekinesis',
+    'Other'
+  ];
+
+  const [heroName, setHeroName] = useState('');
+  const [realName, setRealName] = useState('');
+  const [powerSource, setPowerSource] = useState('');
+  const [powers, setPowers] = useState([]);
+
+  const handlePowersChange = e => {
+    const { value, checked } = e.target;
+    setPowers(checked ? [...powers, value] : powers.filter(p => p !== value));
+    // If the checkbox is checked, add the value to the array with the old values copying the powers array and adding the new value
+    // If it's unchecked, filter it out from the array if the value is not equal to the one being unchecked
+  }
+
+  return (
+    <div className='form-wrap'>
+      <h2>Superhero Application Form</h2>
+      <p>Please complete all fields</p>
+       <form method='post' action='https://superhero-application-form.freecodecamp.org'>
+        <div className='section'>
+          <label>
+            Hero Name
+            <input
+              type='text'
+              value={heroName}
+              onChange={e => setHeroName(e.target.value)}
+            />
+          </label>
+          <label>
+            Real Name
+            <input
+              type='password'
+              value={realName}
+              onChange={e => setRealName(e.target.value)}
+            />
+          </label>
+        </div>
+        <label className='section column'>
+          How did you get your powers?
+          <select value={powerSource} onChange={e => setPowerSource(e.target.value)}>
+            <option value=''>
+              Select one
+            </option>
+           {powerSourceOptions.map(source => (
+             <option key={source} value={source}>
+                {source}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label className='section column'>
+          List your powers (select all that apply):
+
+          {powersOptions.map(power => (
+            <label key={power}>
+              <input
+                type='checkbox'
+                value={power}
+                checked={powers.includes(power)}
+                onChange={handlePowersChange}
+              />
+              <span>{power}</span>
+            </label>
+          ))}
+        </label>
+        <button
+          className='submit-btn'
+          type='submit'
+          
+        >
+          Join the League
+        </button>
+      </form>
+    </div>
+  )
+};
