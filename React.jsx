@@ -473,7 +473,7 @@ function playSound(fileName) {
   const audio = new Audio();
   audio.src = `https://code.s3.yandex.net/web-code/react/${fileName}`;
   audio.play();
-}
+
 
 {/*A beautiful example where I use the audio object 4 the first time  */}
 function playSound(fileName) {
@@ -638,3 +638,95 @@ export const SuperheroForm = () => {
     </div>
   )
 };
+
+/*A NEW EXAMPLE WITH A FORM */
+
+const { useState, useMemo, useCallback } = React;
+
+const items = [
+  "Apples",
+  "Bananas",
+  "Strawberries",
+  "Blueberries",
+  "Mangoes",
+  "Pineapple",
+  "Lettuce",
+  "Broccoli",
+  "Paper Towels",
+  "Dish Soap",
+];
+
+
+export const ShoppingList = () => {
+  const [query, setQuery] = useState("");
+  const [selectedItems, setSelectedItems] = useState([]);
+
+  //here useMemo prevents this function to run on every render, only runs when query changes
+  const filteredItems = useMemo(() => {
+    return items.filter((item) =>
+      item.toLowerCase().includes(query.toLowerCase())
+    );
+  }, [query]);
+
+  const toggleItem = (item) => {
+    setSelectedItems((prev) =>
+      prev.includes(item) ? prev.filter((i) => i !== item) : [...prev, item]
+    //this is creating a new array based on which items are checked
+    //first it checks if the prev array has the selected item, if it does already, then it cleans it out by filtering
+    //if it doesn't have the item, then it adds it to the array by copying the old array and adding the new item
+    );
+  };
+
+
+  return (
+    <div className="container">
+      <h1>Shopping List</h1>
+      <form>
+        <label htmlFor="search">Search for an item:</label>
+        <input
+          id="search"
+          type="search"
+          placeholder="Search..."
+          aria-describedby="search-description"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+        /> 
+        <p id="search-description">Type to filter the list below:</p>
+        <ul>
+          {filteredItems.map((item) => {
+            const isChecked = selectedItems.includes(item);
+            return (
+              <li
+                key={item}
+                style={{ textDecoration: isChecked ? "line-through" : "none" }}
+              >
+                <label>
+                  <input
+                    type="checkbox"
+                    onChange={() => toggleItem(item)}
+                    checked={isChecked}
+                  />
+                  {item}
+                </label>
+              </li>
+            );
+          })}
+        </ul>
+      </form>
+    </div>
+  );
+};
+
+//The flow:
+/****The chain of events:**
+
+1. User types in the input
+2. `onChange` fires → `setQuery(e.target.value)` updates state
+3. Component re-renders (because state changed)
+4. `filteredItems` recalculates with the new `query` value
+5. `.map()` creates new `<li>` elements with updated results
+6. DOM updates on screen
+
+So it **is** connected to `onChange`. The connection just isn't obvious because it happens through state:
+```
+Input change → onChange → setQuery → State updates → Re-render → filteredItems recalculates → UI updates */
